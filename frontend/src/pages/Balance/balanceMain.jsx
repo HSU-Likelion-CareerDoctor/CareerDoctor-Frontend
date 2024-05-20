@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Banner from "../../components/Banner";
 import drop from "../../img/dropdown_1.png";
-import Card from "../../components/Card";
+import CardList from "../../components/CardList";
 
 const Container = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ function BalanceMain() {
         <StyledP>당신은 어떻게 생각하나요? 투표해주세요.</StyledP>
       </Container>
       <Container>
-        <Card />
+        <CardList numCards={5} />
       </Container>
     </>
   );
