@@ -10,18 +10,18 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 13%;
-    height: auto;
-    margin-top:2vw;
-    margin-bottom: 2vw;
+  width: 13%;
+  height: auto;
+  margin-top:2vw;
+  margin-bottom: 2vw;
 `;
 
 const Title = styled.div`
-    font-size: 1.5vw;
-    font-weight: bold;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    text-align: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  text-align: center;
 `;
 
 const Form = styled.form`
@@ -29,20 +29,22 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const InputGroup = styled.div`
-  position: relative;
-  width: 100%;
-  margin-bottom: 1vw;
-`;
 
 const Input = styled.input`
   width: 100%;
   padding: 1vw;
   padding-right: 10vw;
-  margin-bottom: 1vw;
-  border: 1px solid #ccc;
+  margin-bottom: 0.7vw;
+  border: 0.1vw solid #B6B6B6;
   border-radius: 1vw;
   box-sizing: border-box;
+  border-color: ${props => (props.active ? "#558DFA" : "#B6B6B6")};
+
+  &:focus {
+    border-color: #558DFA;
+    border: 0.15vw solid #558DFA;
+    outline: none;
+  }
 `;
 
 const Label = styled.label`
@@ -50,13 +52,14 @@ const Label = styled.label`
   font-weight: bold;
   margin-top: 1vw;
   margin-bottom: 1vw;
+  color: #000000;
 `;
 
 const Note = styled.span`
   font-size: 0.8vw;
-  color: #999;
-  margin-top: -0.5vw;
+  color: #535353;
   margin-bottom: 1.5vw;
+  margin-left: 1vw;
   text-align: start;
 `;
 
@@ -66,32 +69,15 @@ const Button = styled.div`
   align-items: center;
   margin-top: 2vw;
 `;
-//중복확인버튼
-const CheckButton = styled.button`
-  position: absolute;
-  right: 1vw;
-  top: 38%;
-  transform: translateY(-50%);
-  padding: 0.5vw 1vw;
-  border: none;
-  border-radius: 0.5vw;
-  background-color: #EBEBEB;
-  font-size: 0.8vw;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
 
 const SignupButton = styled.button`
+  font-weight:bold;
   width: 220px;
   padding: 1vw;
   margin: 0.5vw 0;
   border: none;
   border-radius: 1vw;
-  background-color: #9BBDFF;
-  color: white;
+  background-color: ${props => (props.active ? "#558DFA" : "#EBEBEB")};
   font-size: 1vw;
   cursor: pointer;
 
@@ -101,12 +87,14 @@ const SignupButton = styled.button`
 `;
 
 const LoginButton = styled.button`
+  font-weight: bold;
+  color: #fff;
   width: 220px;
   padding: 1vw;
   margin: 0.5vw 0;
   border: none;
   border-radius: 1vw;
-  background-color: #EBEBEB;
+  background-color: #9BBDFF;
   font-size: 1vw;
   cursor: pointer;
 
@@ -115,65 +103,82 @@ const LoginButton = styled.button`
   }
 `;
 
-
+const Error =styled.div` 
+  font-size:0.8vw;
+  font-weight:bold;
+  text-align:center;
+  color: red;
+  margin-top: -2vw;
+  margin-bottom:2vw;
+`;
 
 const Message = styled.p`
   color: ${props => (props.isValid ? "green" : "red")};
   margin-bottom: 1vw;
 `;
 
-const Signup = () => {
+const Login = () => {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isUsernameValid, setIsUsernameValid] = useState(null);
-  const [message, setMessage] = useState("");
+  const [isLoginActive, setIsLoginActive] = useState(false);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
     setIsUsernameValid(null);
-    setMessage("");
+    setIsLoginActive(e.target.value !== "" && password !== "");
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setIsLoginActive(e.target.value !== "" && username !== "");
   };
 
   const checkUsername = () => {
-    // 여기서 실제 서버 API를 호출하도록 수정해야 함
-    // 예: axios.get(`/api/check-username?username=${username}`)
     const existingUsernames = ["user1", "user2", "user3"];
     if (existingUsernames.includes(username)) {
       setIsUsernameValid(false);
-      setMessage("이미 사용 중인 아이디입니다.");
     } else {
       setIsUsernameValid(true);
-      setMessage("사용 가능한 아이디입니다.");
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 로그인 완료 후 메인 페이지로 이동하는 로직을 추가
   };
 
   return (
     <Container>
       <Logo src={LogoIcon} alt="LogoIcon" />
-      <Title>회원가입</Title>
-      <Form>
-        <Label>아이디</Label>
-        <InputGroup>
+      <Title>커리어닥터에서 <br />당신의 스펙을 진단받아보세요.</Title>
+      <Form onSubmit={handleSubmit}>
+        <Label active={username !== ""}>아이디</Label>
           <Input
             type="text" 
             placeholder="아이디를 입력해주세요." 
             value={username} 
-            onChange={handleUsernameChange} 
+            onChange={handleUsernameChange}
+            active={username !== ""}
           />
-          <CheckButton type="button" onClick={checkUsername}>중복 확인</CheckButton>
-        </InputGroup>
-        {isUsernameValid !== null && <Message isValid={isUsernameValid}>{message}</Message>}
-        <Label>비밀번호</Label>
-        <Input type="password" placeholder="비밀번호를 입력해주세요." />
-        <Note>※ 영문, 숫자를 포함한 8자리 이상</Note>
-        <Label>비밀번호 확인</Label>
-        <Input type="password" placeholder="비밀번호를 입력해주세요." />
+          <Note>아이디 찾기</Note>
+        <Label active={password !== ""}>비밀번호</Label>
+          <Input
+            type="password" 
+            placeholder="비밀번호를 입력해주세요." 
+            value={password} 
+            onChange={handlePasswordChange}
+            active={password !== ""}
+          />
+          <Note>비밀번호 찾기</Note>
         <Button>
-          <SignupButton type="submit">회원가입</SignupButton>
+            <Error>아이디와 비밀번호를 다시 한번 입력해주세요.</Error>
           <LoginButton type="button">로그인</LoginButton>
+          <SignupButton type="submit" active={isLoginActive}>회원가입</SignupButton>
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default Signup;
+export default Login;
