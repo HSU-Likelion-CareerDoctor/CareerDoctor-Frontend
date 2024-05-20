@@ -4,6 +4,7 @@ import Main from "./pages/Main/main";
 import CreateVote from "./pages/Balance/createVote";
 import BalanceMain from "./pages/Balance/balanceMain";
 import Signup from "./pages/Main/Signup";
+import Login from "./pages/Main/Login";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/balanceMain" element={<BalanceMain />} />
         <Route path="/createVote" element={<CreateVote />} />
         <Route path="/signup" element={<Signup/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </Router>
   );
