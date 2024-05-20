@@ -5,7 +5,7 @@ const Background = styled.div`
   width: 100%;
   height: 22.1vw;
   flex-shrink: 0;
-  background: #edf4f9;
+  background: #d8e5ef;
   display: flex;
   justify-content: center;
   align-items: center;
