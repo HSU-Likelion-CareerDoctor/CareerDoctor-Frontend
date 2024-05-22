@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import down from "../../img/down.png";
+import { useNavigate } from "react-router-dom";
 
 // Styled-components 정의
 const MainContainer = styled.div`
@@ -82,11 +83,29 @@ const DropdownContainer = styled.div`
   position: relative;
 `;
 
+const DropdownContainer2 = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 1.2vw;
+  cursor: pointer;
+  position: relative;
+`;
+
 const DropdownText = styled.div`
   font-family: "Noto Sans KR";
   font-size: 1vw;
   font-weight: 700;
   color: #000;
+`;
+const DropdownText2 = styled.div`
+  font-family: "Noto Sans KR";
+  font-size: 1vw;
+  font-weight: 700;
+  color: #969696;
+`;
+
+const Dropdown = styled.div`
+  display: flex;
 `;
 
 const DropdownIcon = styled.img`
@@ -165,15 +184,26 @@ const ButtonSection = styled.div`
 
 function CreateVote() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+
   const [selectedOption, setSelectedOption] = useState("");
-  const [selectedOption2, seSelectedOption2] = useState("");
+  const [selectedOption2, setSelectedOption2] = useState("");
   const [options, setOptions] = useState(["", ""]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdown2 = () => setIsDropdownOpen2(!isDropdownOpen2);
 
+  const navigate = useNavigate();
+  const moveVoteRegister = () => {
+    navigate("/voteRegister");
+  };
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
+  };
+  const handleOptionClick2 = (option) => {
+    setSelectedOption2(option);
+    setIsDropdownOpen2(false);
   };
 
   const handleOptionChange = (index, value) => {
@@ -226,38 +256,42 @@ function CreateVote() {
         <Box>
           <Section>
             <Title>직무*</Title>
-            <DropdownContainer onClick={toggleDropdown}>
-              <DropdownText>{selectedOption || "전체"}</DropdownText>
-              <DropdownIcon src={down} />
-              {isDropdownOpen && (
-                <DropdownMenu>
-                  {jobOptions.map((option) => (
-                    <DropdownItem
-                      key={option}
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              )}
-              <DropdownText>
-                {selectedOption2 || "직군을 선택해주세요."}
-              </DropdownText>
-              <DropdownIcon src={down} />
-              {isDropdownOpen && (
-                <DropdownMenu>
-                  {detailOptions.map((option) => (
-                    <DropdownItem
-                      key={option}
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              )}
-            </DropdownContainer>
+            <Dropdown>
+              <DropdownContainer onClick={toggleDropdown}>
+                <DropdownText>{selectedOption || "전체"}</DropdownText>
+                <DropdownIcon src={down} />
+                {isDropdownOpen && (
+                  <DropdownMenu>
+                    {jobOptions.map((option) => (
+                      <DropdownItem
+                        key={option}
+                        onClick={() => handleOptionClick(option)}
+                      >
+                        {option}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                )}
+              </DropdownContainer>
+              <DropdownContainer2 onClick={toggleDropdown2}>
+                <DropdownText2>
+                  {selectedOption2 || "직군을 선택해주세요."}
+                </DropdownText2>
+                <DropdownIcon src={down} />
+                {isDropdownOpen2 && (
+                  <DropdownMenu>
+                    {detailOptions.map((option) => (
+                      <DropdownItem
+                        key={option}
+                        onClick={() => handleOptionClick2(option)}
+                      >
+                        {option}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                )}
+              </DropdownContainer2>
+            </Dropdown>
           </Section>
           <Section>
             <Title>제목*</Title>
@@ -292,7 +326,9 @@ function CreateVote() {
             </InputContainer>
           </Section>
           <ButtonSection>
-            <CompleteButton>작성 완료</CompleteButton>
+            <CompleteButton onClick={moveVoteRegister}>
+              작성 완료
+            </CompleteButton>
           </ButtonSection>
         </Box>
       </BodyContainer>

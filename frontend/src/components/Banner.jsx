@@ -69,13 +69,6 @@ const VoteButton = styled.div`
   font-weight: 700;
   line-height: normal;
 `;
-const ImgContainer = styled.div`
-  width: 14.6vw;
-  height: 1.25vw;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-`;
 
 function Banner() {
   const navigate = useNavigate();
