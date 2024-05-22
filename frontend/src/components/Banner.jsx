@@ -75,6 +75,7 @@ function Banner() {
   const moveCreateVote = () => {
     navigate("/createVote");
   };
+
   return (
     <>
       <Background>
