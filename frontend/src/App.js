@@ -7,6 +7,7 @@ import VoteRegister from "./pages/Balance/voteRegister";
 import VoteDetail from "./pages/Balance/voteDetail";
 import Signup from "./pages/Main/Signup";
 import Login from "./pages/Main/Login";
+import Mypage from "./pages/Mypage/mypage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/voteDetail" element={<VoteDetail />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
     </Router>
   );
