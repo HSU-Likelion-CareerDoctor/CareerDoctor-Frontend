@@ -28,7 +28,7 @@ const DropDownContainer = styled.p`
 
 const DropDown = styled.div`
   display: inline-flex;
-  height: 1.8vw;
+  height: 0.8vw;
   padding: 1.45vw 3.2vw;
   flex-direction: row;
   justify-content: center;

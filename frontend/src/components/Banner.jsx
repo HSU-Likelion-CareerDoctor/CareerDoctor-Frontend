@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import logo1 from "../img/logo1.png";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   width: 100%;
@@ -77,6 +78,10 @@ const ImgContainer = styled.div`
 `;
 
 function Banner() {
+  const navigate = useNavigate();
+  const moveCreateVote = () => {
+    navigate("/createVote");
+  };
   return (
     <>
       <Background>
@@ -87,7 +92,7 @@ function Banner() {
               <BigText>지금 바로</BigText>
               <BigText>선배들에게 물어보세요!</BigText>
             </TitleTextContainer>
-            <VoteButton>투표 올리기</VoteButton>
+            <VoteButton onClick={moveCreateVote}>투표 올리기</VoteButton>
           </TitleContainer>
           <img src={logo1} style={{ width: "14.6vw", height: "11.6vw" }}></img>
         </BannerContainer>

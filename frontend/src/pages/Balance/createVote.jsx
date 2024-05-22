@@ -46,7 +46,7 @@ const Title = styled.div`
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  background: var(--grey-box-text, #b6b6b6);
+  background: var(--grey-box-text, #eeecec);
   padding: 1.15vw 1vw;
   border-radius: 0.2vw;
   margin-top: 0.5vw;
@@ -144,23 +144,29 @@ const OptionContainer = styled.div`
 `;
 
 const CompleteButton = styled.button`
-  background: var(--grey-box-text, #b6b6b6);
+  background: var(--grey-box-text, #eeecec);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.2vw;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   color: #747272;
-  border: 0.05vw solid #ccc;
+  border: 0.05vw solid var(--grey-box-text, #eeecec);
 `;
 const ButtonSection = styled.div`
   display: flex;
-  width: 16.7vw;
+  width: 53vw;
   height: 4vw;
   padding: 1.2vw 6vw;
+  justify-content: flex-end;
 `;
 
 function CreateVote() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption2, seSelectedOption2] = useState("");
   const [options, setOptions] = useState(["", ""]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -203,6 +209,14 @@ function CreateVote() {
     "회계 · 세무",
   ];
 
+  const detailOptions = [
+    "디자인 전체",
+    "UI 디자이너",
+    "UI, GUI 디자이너",
+    "웹 디자이너",
+    "그래픽 디자이너",
+  ];
+
   return (
     <>
       <MainContainer>
@@ -218,6 +232,22 @@ function CreateVote() {
               {isDropdownOpen && (
                 <DropdownMenu>
                   {jobOptions.map((option) => (
+                    <DropdownItem
+                      key={option}
+                      onClick={() => handleOptionClick(option)}
+                    >
+                      {option}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              )}
+              <DropdownText>
+                {selectedOption2 || "직군을 선택해주세요."}
+              </DropdownText>
+              <DropdownIcon src={down} />
+              {isDropdownOpen && (
+                <DropdownMenu>
+                  {detailOptions.map((option) => (
                     <DropdownItem
                       key={option}
                       onClick={() => handleOptionClick(option)}
