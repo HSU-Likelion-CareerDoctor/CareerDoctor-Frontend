@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import logo1 from "../img/logo1.png";
+import { useNavigate } from "react-router-dom";
 
 const Background = styled.div`
   width: 100%;
   height: 22.1vw;
   flex-shrink: 0;
-  background: #edf4f9;
+  background: #d8e5ef;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,15 +69,13 @@ const VoteButton = styled.div`
   font-weight: 700;
   line-height: normal;
 `;
-const ImgContainer = styled.div`
-  width: 14.6vw;
-  height: 1.25vw;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-`;
 
 function Banner() {
+  const navigate = useNavigate();
+  const moveCreateVote = () => {
+    navigate("/createVote");
+  };
+
   return (
     <>
       <Background>
@@ -87,7 +86,7 @@ function Banner() {
               <BigText>지금 바로</BigText>
               <BigText>선배들에게 물어보세요!</BigText>
             </TitleTextContainer>
-            <VoteButton>투표 올리기</VoteButton>
+            <VoteButton onClick={moveCreateVote}>투표 올리기</VoteButton>
           </TitleContainer>
           <img src={logo1} style={{ width: "14.6vw", height: "11.6vw" }}></img>
         </BannerContainer>
