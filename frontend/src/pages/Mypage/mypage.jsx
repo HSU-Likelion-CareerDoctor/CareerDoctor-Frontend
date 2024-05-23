@@ -1,12 +1,10 @@
 // mypage.jsx
+
 import React, { useState } from "react";
 import styled from "styled-components";
-import volunteerImage from "../../img/heart.png";
-import certificationImage from "../../img/certificate.png";
-import languageImage from "../../img/language.png";
-import ContestImage from "../../img/contest.png";
 import SelectionCategory from "../Mypage/SelectionCategory";
 import PrescriptionContainer from "../Mypage/Prescription";
+import Opinion from "./opinion";
 
 const PageContainer = styled.div`
   display: flex;
@@ -198,7 +196,9 @@ const MyPage = () => {
         <SelectionButton onClick={handleSelectionButtonClick}>
           스펙진단받기
         </SelectionButton>
-        <SelectionButton>스펙소견서</SelectionButton>
+        <SelectionButton onClick={handlePrescriptionButtonClick}>
+          스펙소견서
+        </SelectionButton>
         <SelectionButton>취준밸런스</SelectionButton>
       </SelectionBarContainer>
       {showDiagnosis && (
@@ -206,14 +206,7 @@ const MyPage = () => {
           handlePrescriptionButtonClick={handlePrescriptionButtonClick}
         />
       )}
-      {showPrescription && (
-        <PrescriptionContainer
-          volunteerImage={volunteerImage}
-          certificationImage={certificationImage}
-          languageImage={languageImage}
-          ContestImage={ContestImage}
-        />
-      )}
+      {showPrescription && <Opinion />}
     </PageContainer>
   );
 };
