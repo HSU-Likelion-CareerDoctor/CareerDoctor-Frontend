@@ -166,7 +166,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-         <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
+          <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -186,7 +186,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-           <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
+          <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -206,7 +206,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-           <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
+          <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -226,7 +226,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-       <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
+        <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
