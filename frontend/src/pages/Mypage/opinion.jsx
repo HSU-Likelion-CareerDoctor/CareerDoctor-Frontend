@@ -1,4 +1,4 @@
-// opinion.jsx
+// #마이페이지_스펙소견서
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";

@@ -1,10 +1,10 @@
-// mypage.jsx
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import SelectionCategory from "./SelectionCategory";
 import Prescription from "./Prescription";
-import Opinion from "./opinion";
+import Opinion from "./Opinion";
+import Balance from "./BalanceCategory";
+import MyVote from "./MyVote";
 
 const PageContainer = styled.div`
   display: flex;
@@ -159,7 +159,9 @@ const SelectionButton = styled.button`
 const MyPage = () => {
   const [showDiagnosis, setShowDiagnosis] = useState(false);
   const [showPrescription, setShowPrescription] = useState(false);
-  const [showOpinion, setshowOpinion] = useState(false);
+  const [showOpinion, setShowOpinion] = useState(false);
+  const [showBalance, setShowBalance] = useState(false);
+  const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
 
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
@@ -170,9 +172,17 @@ const MyPage = () => {
     setShowPrescription(true);
   };
 
-    const handleOpinionButtonClick = () => {
-      setshowOpinion(true);
-    };
+  const handleOpinionButtonClick = () => {
+    setShowOpinion(true);
+  };
+
+  const handleBalanceButtonClick = () => {
+    setShowBalance(true);
+  };
+
+  const handleMyVoteClick = () => {
+    setShowMyVote(true);
+  };
 
   return (
     <PageContainer>
@@ -199,12 +209,14 @@ const MyPage = () => {
       </ProfileSection>
       <SelectionBarContainer>
         <SelectionButton onClick={handleSelectionButtonClick}>
-          스펙진단받기
+          스펙 진단받기
         </SelectionButton>
         <SelectionButton onClick={handleOpinionButtonClick}>
-          스펙처방전
+          스펙 소견서
         </SelectionButton>
-        <SelectionButton>취준밸런스</SelectionButton>
+        <SelectionButton onClick={handleBalanceButtonClick}>
+          취준밸런스
+        </SelectionButton>
       </SelectionBarContainer>
       {/* 스펙진단받기클릭 */}
       {showDiagnosis && (
@@ -215,8 +227,13 @@ const MyPage = () => {
       {/* 스펙진단서 스펙처방전 클릭*/}
       {showPrescription && <Prescription />}
       {showOpinion && <Opinion />}
+      {showBalance && <Balance />}
+      {showMyVote && (
+        <MyVote /> // MyVote 컴포넌트 추가
+      )}
     </PageContainer>
   );
 };
 
 export default MyPage;
+

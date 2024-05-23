@@ -1,4 +1,4 @@
-// PrescriptionContainer.jsx
+// #마이페이지_스펙진단받기_받은 스펙처방전
 import React from "react";
 import styled from "styled-components";
 import volunteerImage from "../../img/heart.png";

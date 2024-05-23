@@ -1,4 +1,6 @@
-// SelectionCategory.jsx 선택 스펙진단서vs스펙처방전
+//#마이페이지_취준밸런스_내가올린투표
+// BalanceCategory.jsx
+
 import React from "react";
 import styled from "styled-components";
 
@@ -27,13 +29,16 @@ const Category = styled.button`
   }
 `;
 
-const SelectionCategory = ({ handlePrescriptionButtonClick }) => {
+const BalanceCategory = ({ handleMyVoteClick }) => {
   return (
     <SelectionCategoryContainer>
-      <Category>스펙진단서</Category>
-      <Category onClick={handlePrescriptionButtonClick}>스펙처방전</Category>
+      <Category onClick={handleMyVoteClick}>내가 올린 투표</Category>
+      <Category>내가 참여한 투표</Category>
+      <Category>좋아요</Category>
+      <Category>스크랩</Category>
     </SelectionCategoryContainer>
   );
 };
 
-export default SelectionCategory;
+export default BalanceCategory;
+
