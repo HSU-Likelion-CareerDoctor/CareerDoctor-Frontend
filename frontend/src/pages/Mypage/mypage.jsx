@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import SelectionCategory from "../Mypage/SelectionCategory";
-import PrescriptionContainer from "../Mypage/Prescription";
+import SelectionCategory from "./SelectionCategory";
+import Prescription from "./Prescription";
 import Opinion from "./opinion";
 
 const PageContainer = styled.div`
@@ -159,6 +159,7 @@ const SelectionButton = styled.button`
 const MyPage = () => {
   const [showDiagnosis, setShowDiagnosis] = useState(false);
   const [showPrescription, setShowPrescription] = useState(false);
+  const [showOpinion, setshowOpinion] = useState(false);
 
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
@@ -168,6 +169,10 @@ const MyPage = () => {
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
   };
+
+    const handleOpinionButtonClick = () => {
+      setshowOpinion(true);
+    };
 
   return (
     <PageContainer>
@@ -196,17 +201,20 @@ const MyPage = () => {
         <SelectionButton onClick={handleSelectionButtonClick}>
           스펙진단받기
         </SelectionButton>
-        <SelectionButton onClick={handlePrescriptionButtonClick}>
-          스펙소견서
+        <SelectionButton onClick={handleOpinionButtonClick}>
+          스펙처방전
         </SelectionButton>
         <SelectionButton>취준밸런스</SelectionButton>
       </SelectionBarContainer>
+      {/* 스펙진단받기클릭 */}
       {showDiagnosis && (
         <SelectionCategory
           handlePrescriptionButtonClick={handlePrescriptionButtonClick}
         />
       )}
-      {showPrescription && <Opinion />}
+      {/* 스펙진단서 스펙처방전 클릭*/}
+      {showPrescription && <Prescription />}
+      {showOpinion && <Opinion />}
     </PageContainer>
   );
 };

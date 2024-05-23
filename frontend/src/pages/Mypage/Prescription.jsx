@@ -1,6 +1,10 @@
 // PrescriptionContainer.jsx
 import React from "react";
 import styled from "styled-components";
+import volunteerImage from "../../img/heart.png";
+import certificationImage from "../../img/certificate.png";
+import languageImage from "../../img/language.png";
+import ContestImage from "../../img/contest.png";
 
 const PrescriptionContainerWrapper = styled.div`
   display: flex;
@@ -79,13 +83,8 @@ const Text = styled.div`
   font-weight: 700;
 `;
 
-const Prescription = ({
-  volunteerImage,
-  certificationImage,
-  languageImage,
-  ContestImage,
-}) => {
-    
+const Prescription = () => {
+
   return (
     <PrescriptionContainerWrapper>
       <PrescriptionHeader>00님에게 처방한 스펙입니다.</PrescriptionHeader>

@@ -1,7 +1,7 @@
 // opinion.jsx
-
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const OpinionContainer = styled.div`
   width: 60%;
@@ -49,9 +49,10 @@ const RecommendSpecBox = styled.div`
   color: #000000;
   border: 1px solid #ccc;
   padding: 0.5vw;
+  margin-bottom: 1vw;
 `;
 
-const FeedbackButton = styled.button`
+const FeedbackButton = styled(Link)`
   width: 100%;
   margin-top: 1vw;
   padding: 0.5vw 1vw;
@@ -60,6 +61,7 @@ const FeedbackButton = styled.button`
   border: none;
   background-color: #edf4f9;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color 0.3s;
 
   &:hover {
@@ -144,7 +146,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+            <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -164,7 +166,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+         <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -184,7 +186,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+           <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -204,7 +206,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+           <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -224,7 +226,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+       <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
           <OpinionBox>
             <InfoBox>
@@ -244,7 +246,7 @@ const Opinion = () => {
               <RecommendSpecBox>자격증</RecommendSpecBox>
               <RecommendSpecBox>자격증</RecommendSpecBox>
             </RecommendSpecBoxContainer>
-            <FeedbackButton>피드백 실천후기 작성하기</FeedbackButton>
+            <FeedbackButton to="/feedback">피드백 실천후기 작성하기</FeedbackButton>
           </OpinionBox>
         </OpinionContainer>
         <AddBox>더보기</AddBox>
