@@ -8,6 +8,7 @@ import VoteDetail from "./pages/Balance/voteDetail";
 import Signup from "./pages/Main/Signup";
 import Login from "./pages/Main/Login";
 import Mypage from "./pages/Mypage/mypage";
+import FeedbackPage from "./pages/Mypage/FeedbackPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/feedback" element={<FeedbackPage/>} />
       </Routes>
     </Router>
   );

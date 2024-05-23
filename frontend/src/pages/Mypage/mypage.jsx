@@ -1,10 +1,10 @@
-// mypage.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
-import volunteerImage from "../../img/heart.png"; 
-import certificationImage from "../../img/certificate.png";
-import languageImage from "../../img/language.png";
-import ContestImage from "../../img/contest.png";
+import SelectionCategory from "./SelectionCategory";
+import Prescription from "./Prescription";
+import Opinion from "./Opinion";
+import Balance from "./BalanceCategory";
+import MyVote from "./MyVote";
 
 const PageContainer = styled.div`
   display: flex;
@@ -156,113 +156,12 @@ const SelectionButton = styled.button`
   }
 `;
 
-const SelectionCategory = styled.div`
-  display: flex;
-  width: 90%;
-  max-width: 1200px;
-`;
-
-const Category = styled.button`
-  display: flex;
-  padding: 0.5vw 1.2vw;
-  margin-top: 1vw;
-  margin-right: 1vw;
-  font-size: 0.9vw;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  color: #000000;
-  background-color: #d9d9d9;
-  transition: background-color 0.3s, color 0.3s;
-
-  &:hover {
-    background-color: #007bff;
-    color: #ffffff;
-  }
-`;
-
-const PrescriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  max-width: 1200px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin-top: 3vw;
-  padding: 20px;
-`;
-
-
-const PrescriptionHeader = styled.div`
-  font-family: "Noto Sans KR";
-  font-size: 1.2vw;
-  font-weight: 700;
-  margin-bottom: 1vw;
-`;
-
-const PrescriptionBoxContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const ArrowButton = styled.button`
-  font-size: 2vw;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #000000;
-  transition: color 0.3s;
-
-  &:hover {
-    color: #007bff;
-  }
-`;
-
-const PrescriptionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #efefef;
-  padding: 2vw;
-  border-radius: 10px;
-  flex: 1;
-  margin: 0 1vw;
-  text-align: center;
-  font-family: "Noto Sans KR";
-  font-size: 1vw;
-  font-weight: 600;
-  gap:1vw;
-`;
-
-const Volunteer = styled.img`
-  width: 40%;
-`;
-const Certification = styled.img`
-  width: 40%;
-`;
-const Language = styled.img`
-  width: 40%;
-`;
-const Contest = styled.img`
-  width: 40%;
-`;
-
-const Text = styled.div`
-  margin-top: 1vw;
-  color: #5e5e5e;
-  font-size: 1vw;
-  font-weight: 700;
-`;
-
-
 const MyPage = () => {
   const [showDiagnosis, setShowDiagnosis] = useState(false);
   const [showPrescription, setShowPrescription] = useState(false);
+  const [showOpinion, setShowOpinion] = useState(false);
+  const [showBalance, setShowBalance] = useState(false);
+  const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
 
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
@@ -271,6 +170,18 @@ const MyPage = () => {
 
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
+  };
+
+  const handleOpinionButtonClick = () => {
+    setShowOpinion(true);
+  };
+
+  const handleBalanceButtonClick = () => {
+    setShowBalance(true);
+  };
+
+  const handleMyVoteClick = () => {
+    setShowMyVote(true);
   };
 
   return (
@@ -298,50 +209,31 @@ const MyPage = () => {
       </ProfileSection>
       <SelectionBarContainer>
         <SelectionButton onClick={handleSelectionButtonClick}>
-          스펙진단받기
+          스펙 진단받기
         </SelectionButton>
-        <SelectionButton>스펙소견서</SelectionButton>
-        <SelectionButton>취준밸런스</SelectionButton>
+        <SelectionButton onClick={handleOpinionButtonClick}>
+          스펙 소견서
+        </SelectionButton>
+        <SelectionButton onClick={handleBalanceButtonClick}>
+          취준밸런스
+        </SelectionButton>
       </SelectionBarContainer>
+      {/* 스펙진단받기클릭 */}
       {showDiagnosis && (
-        <SelectionCategory>
-          <Category>스펙진단서</Category>
-          <Category onClick={handlePrescriptionButtonClick}>
-            스펙처방전
-          </Category>
-        </SelectionCategory>
+        <SelectionCategory
+          handlePrescriptionButtonClick={handlePrescriptionButtonClick}
+        />
       )}
-      {showPrescription && (
-        <PrescriptionContainer>
-          <PrescriptionHeader>00님에게 처방한 스펙입니다.</PrescriptionHeader>
-          <PrescriptionBoxContainer>
-            <ArrowButton>{"<"}</ArrowButton>
-            <PrescriptionBox>
-              <Volunteer src={volunteerImage} alt="volunteerImage" />
-              00000000 봉사<br></br> 봉사
-            </PrescriptionBox>
-            <PrescriptionBox>
-              <Certification
-                src={certificationImage}
-                alt="certificationImage"
-              />
-              00000000 자격증<br></br> 자격증
-            </PrescriptionBox>
-            <PrescriptionBox>
-              <Language src={languageImage} alt="languageImage" />
-              00언어 <br></br>언어
-            </PrescriptionBox>
-            <PrescriptionBox>
-              <Contest src={ContestImage} alt="ContestImage" />
-              000공모전<br></br>공모전
-            </PrescriptionBox>
-            <ArrowButton>{">"}</ArrowButton>
-          </PrescriptionBoxContainer>
-          <Text>처방 내용을 클릭하여 자세한 정보를 확인해보세요!</Text>
-        </PrescriptionContainer>
+      {/* 스펙진단서 스펙처방전 클릭*/}
+      {showPrescription && <Prescription />}
+      {showOpinion && <Opinion />}
+      {showBalance && <Balance />}
+      {showMyVote && (
+        <MyVote /> // MyVote 컴포넌트 추가
       )}
     </PageContainer>
   );
 };
 
 export default MyPage;
+
