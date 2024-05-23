@@ -6,7 +6,7 @@ const Background = styled.div`
   width: 100%;
   height: 22.1vw;
   flex-shrink: 0;
-  background: #d8e5ef;
+  background: #edf4f9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,7 @@ const TitleTextContainer = styled.div`
 
 const SmallText = styled.span`
   color: #000;
-  font-family: "Pretendard Variable";
+  font-family: "PretendardVariable";
   font-size: 1vw;
   font-style: normal;
   font-weight: 700;
@@ -44,7 +44,7 @@ const SmallText = styled.span`
 
 const BigText = styled.span`
   color: #000;
-  font-family: "Pretendard Variable";
+  font-family: "PretendardVariable";
   font-size: 2vw;
   font-style: normal;
   font-weight: 700;
@@ -63,14 +63,14 @@ const VoteButton = styled.div`
   background: var(--point-box, #558dfa);
   color: #fff;
   text-align: center;
-  font-family: "Pretendard Variable";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 `;
 
-function Banner() {
+function Banner(props) {
   const navigate = useNavigate();
   const moveCreateVote = () => {
     navigate("/createVote");
@@ -82,11 +82,11 @@ function Banner() {
         <BannerContainer>
           <TitleContainer>
             <TitleTextContainer>
-              <SmallText>무슨 활동을 선택 해야할 지 고민이신가요?</SmallText>
-              <BigText>지금 바로</BigText>
-              <BigText>선배들에게 물어보세요!</BigText>
+              <SmallText>{props.text1}</SmallText>
+              <BigText>{props.text2}</BigText>
+              <BigText>{props.text3}</BigText>
             </TitleTextContainer>
-            <VoteButton onClick={moveCreateVote}>투표 올리기</VoteButton>
+            <VoteButton onClick={moveCreateVote}>{props.text4}</VoteButton>
           </TitleContainer>
           <img src={logo1} style={{ width: "14.6vw", height: "11.6vw" }}></img>
         </BannerContainer>

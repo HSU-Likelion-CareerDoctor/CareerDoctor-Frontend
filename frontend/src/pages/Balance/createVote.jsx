@@ -12,7 +12,7 @@ const MainContainer = styled.div`
 
 const MainTitle = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.4vw;
   font-weight: 700;
 `;
@@ -38,7 +38,7 @@ const Section = styled.div`
 
 const Title = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-weight: 700;
   margin-bottom: 1vw;
@@ -62,7 +62,7 @@ const Input = styled.input`
   border: none;
   background: transparent;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
 `;
 
 const TextArea = styled.textarea`
@@ -72,7 +72,7 @@ const TextArea = styled.textarea`
   border: none;
   background: transparent;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   resize: none;
 `;
 
@@ -92,13 +92,13 @@ const DropdownContainer2 = styled.div`
 `;
 
 const DropdownText = styled.div`
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1vw;
   font-weight: 700;
   color: #000;
 `;
 const DropdownText2 = styled.div`
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1vw;
   font-weight: 700;
   color: #969696;

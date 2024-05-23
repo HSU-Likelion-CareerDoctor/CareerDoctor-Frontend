@@ -4,15 +4,14 @@ import heart from "../img/Component4.png";
 import save from "../img/Component3.png";
 
 const CardContainer = styled.div`
-  width: 20vw;
+  width: 49%;
   padding: 0.8vw;
   border: 0.05vw solid #e0e0e0;
   border-radius: 0.4vw;
   background-color: #ffffff;
   font-family: "Pretendard", sans-serif;
   box-sizing: border-box;
-  flex: 1 1 calc(50% - 1vw); /* 두 개의 카드가 한 줄에 들어가도록 크기 조정 */
-  max-width: calc(50% - 1vw);
+  margin-bottom: 1vw;
 `;
 
 const Header = styled.div`
@@ -105,7 +104,7 @@ const TextContainer = styled.div`
 
 const SmallText = styled.span`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.7vw;
   font-style: normal;
   font-weight: 700;
@@ -114,7 +113,7 @@ const SmallText = styled.span`
 
 const BigText = styled.span`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
