@@ -35,7 +35,7 @@ const Avatar = styled.div`
 
 const UserName = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.75vw;
   font-style: normal;
   font-weight: 700;
@@ -46,7 +46,7 @@ const Meta = styled.div`
   color: #1dac67;
   display: flex;
   justify-content: center;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.75vw;
   font-style: normal;
   font-weight: 700;
@@ -57,7 +57,7 @@ const Title = styled.h2`
   margin-top: 1vw;
   font-size: 1vw;
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 30px */
@@ -156,7 +156,7 @@ const CommentButton = styled.button`
 
 const Time = styled.span`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.65vw;
   font-style: normal;
   font-weight: 500;
@@ -182,7 +182,7 @@ const CommentContent = styled.div`
 
 const Context = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.7vw;
   font-style: normal;
   font-weight: 500;
@@ -192,7 +192,7 @@ const Context = styled.div`
 
 const CommentTitle = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
@@ -216,7 +216,7 @@ const DropdownMenu = styled.div`
   box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1);
   z-index: 1;
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   display: flex;
   flex-direction: column;
   align-items: center;
