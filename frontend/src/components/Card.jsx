@@ -105,7 +105,7 @@ const TextContainer = styled.div`
 
 const SmallText = styled.span`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 0.7vw;
   font-style: normal;
   font-weight: 700;
@@ -114,7 +114,7 @@ const SmallText = styled.span`
 
 const BigText = styled.span`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;

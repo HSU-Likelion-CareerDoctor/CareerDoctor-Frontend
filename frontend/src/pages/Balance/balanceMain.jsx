@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const StyledP = styled.p`
   color: #000;
-  font-family: "Pretendard Variable";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
@@ -39,7 +39,7 @@ const DropDown = styled.div`
   background: #eee;
   color: #000;
   text-align: center;
-  font-family: "Pretendard Variable";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
@@ -49,7 +49,12 @@ const DropDown = styled.div`
 function BalanceMain() {
   return (
     <>
-      <Banner />
+      <Banner
+        text1="무슨 활동을 선택 해야할 지 고민이신가요?"
+        text2="지금 바로"
+        text3="선배들에게 물어보세요!"
+        text4="투표 올리기"
+      />
       <Container style={{ marginTop: "1.8vw" }}>
         <StyledP>취업을 원하는 직무를 선택해주세요.</StyledP>
       </Container>
