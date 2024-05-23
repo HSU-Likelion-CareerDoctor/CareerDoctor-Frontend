@@ -70,7 +70,7 @@ function BalanceMain() {
         <StyledP>당신은 어떻게 생각하나요? 투표해주세요.</StyledP>
       </Container>
       <Container>
-        <CardList numCards={5} />
+        <CardList initialNumCards={4} incrementNumCards={4} />
       </Container>
     </>
   );
