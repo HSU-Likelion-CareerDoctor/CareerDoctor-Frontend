@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Card from "./Card";
 
@@ -34,6 +35,7 @@ const LoadMoreButton = styled.button`
     background-color: #ebebeb;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -41,10 +43,14 @@ const Container = styled.div`
 
 function CardList({ initialNumCards, incrementNumCards }) {
   const [numCards, setNumCards] = useState(initialNumCards);
+  const location = useLocation(); // 현재 url
 
   const handleLoadMore = () => {
     setNumCards((prevNumCards) => prevNumCards + incrementNumCards);
   };
+
+  // 조건부 url 일때 버튼 보임
+  const shouldShowLoadMoreButton = location.pathname !== "/";
 
   return (
     <div>
@@ -55,9 +61,11 @@ function CardList({ initialNumCards, incrementNumCards }) {
           ))}
         </CardListContainer>
       </Container>
-      <LoadMoreButtonContainer>
-        <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>
-      </LoadMoreButtonContainer>
+      {shouldShowLoadMoreButton && (
+        <LoadMoreButtonContainer>
+          <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>
+        </LoadMoreButtonContainer>
+      )}
     </div>
   );
 }

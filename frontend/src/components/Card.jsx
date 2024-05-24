@@ -9,9 +9,10 @@ const CardContainer = styled.div`
   border: 0.05vw solid #e0e0e0;
   border-radius: 0.4vw;
   background-color: #ffffff;
-  font-family: "Pretendard", sans-serif;
+  font-family: "Pretendard Variable";
   box-sizing: border-box;
   margin-bottom: 1vw;
+  box-shadow: 0vw 0vw 0.5vw 0vw rgba(0, 0, 0, 0.35);
 `;
 
 const Header = styled.div`
@@ -35,26 +36,42 @@ const ProfileImage = styled.div`
 `;
 
 const Username = styled.div`
-  font-weight: bold;
-  font-size: 0.7vw;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 0.8vw;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 
 const TimeAgo = styled.div`
-  font-size: 0.6vw;
-  color: #888888;
+  color: #000;
+  text-align: right;
+  font-family: "Pretendard Variable";
+  font-size: 0.8vw;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const Title = styled.div`
-  font-weight: bold;
-  font-size: 0.8vw;
-  margin-bottom: 0.4vw;
-  width: 70%;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 1vw;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  margin-right: 3vw;
 `;
 
 const Content = styled.div`
+  color: #000;
+  font-family: "Pretendard Variable";
   font-size: 0.7vw;
-  color: #333333;
-  margin-bottom: 0.6vw;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 21px */
+  margin-bottom: 1.7vw;
 `;
 
 const ActionRow = styled.div`
@@ -120,6 +137,15 @@ const BigText = styled.span`
   line-height: normal;
 `;
 
+const Count = styled.div`
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 0.6vw;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
 function Card({ index }) {
   return (
     <CardContainer>
@@ -133,19 +159,24 @@ function Card({ index }) {
       <ActionRow>
         <Title>
           제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
-          제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
+          제목 제목 제목 제목 제목
         </Title>
         <ActionRow2>
           <LikesAndComments>
             <div>
               <img
                 src={heart}
-                style={{ width: "1.6vw", height: "1.6vw" }}
+                style={{ width: "1.2vw", height: "1.2vw" }}
               ></img>
             </div>
-            <div>10</div>
+            <Count>10</Count>
           </LikesAndComments>
-          <img src={save} style={{ width: "1.6vw", height: "1.6vw" }}></img>
+          <LikesAndComments>
+            <div>
+              <img src={save} style={{ width: "1.2vw", height: "1.2vw" }}></img>
+            </div>
+            <Count>10</Count>
+          </LikesAndComments>
         </ActionRow2>
       </ActionRow>
       <Content>
@@ -164,7 +195,7 @@ function Card({ index }) {
         <VoteOption>
           <TextContainer>
             <BigText>60%</BigText>
-            <SmallText>A</SmallText>
+            <SmallText>B</SmallText>
           </TextContainer>
         </VoteOption>
       </VoteSection>
