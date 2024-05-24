@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Section = styled.div`
   display: flex;
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.7vw;
   font-style: normal;
   font-weight: 700;
@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 const Title = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.7vw;
   font-style: normal;
   font-weight: 700;
@@ -40,7 +40,7 @@ const Gif = styled.div`
 const Text = styled.div`
   color: #000;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
@@ -63,7 +63,7 @@ const Button1 = styled.div`
   background: #ebebeb;
   color: #000;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
@@ -81,7 +81,7 @@ const Button2 = styled.div`
   background: var(--point-box, #558dfa);
   color: #fff;
   text-align: center;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;

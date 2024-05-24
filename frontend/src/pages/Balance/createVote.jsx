@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import down from "../../img/down.png";
 import { useNavigate } from "react-router-dom";
+import plus from "../../img/Group 53.png";
+import minus from "../../img/minus.png";
 
 // Styled-components 정의
 const MainContainer = styled.div`
@@ -12,7 +14,7 @@ const MainContainer = styled.div`
 
 const MainTitle = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.4vw;
   font-weight: 700;
 `;
@@ -38,7 +40,7 @@ const Section = styled.div`
 
 const Title = styled.div`
   color: #000;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-weight: 700;
   margin-bottom: 1vw;
@@ -47,8 +49,9 @@ const Title = styled.div`
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  background: var(--grey-box-text, #eeecec);
+  background: #f9f9fa;
   padding: 1.15vw 1vw;
+  border: 0.05vw solid #cdcdcd;
   border-radius: 0.2vw;
   margin-top: 0.5vw;
   width: 27vw;
@@ -62,7 +65,7 @@ const Input = styled.input`
   border: none;
   background: transparent;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
 `;
 
 const TextArea = styled.textarea`
@@ -72,87 +75,19 @@ const TextArea = styled.textarea`
   border: none;
   background: transparent;
   outline: none;
-  font-family: "Noto Sans KR";
+  font-family: "PretendardVariable";
   resize: none;
 `;
 
-const DropdownContainer = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-`;
-
-const DropdownContainer2 = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 1.2vw;
-  cursor: pointer;
-  position: relative;
-`;
-
-const DropdownText = styled.div`
-  font-family: "Noto Sans KR";
-  font-size: 1vw;
-  font-weight: 700;
-  color: #000;
-`;
-const DropdownText2 = styled.div`
-  font-family: "Noto Sans KR";
-  font-size: 1vw;
-  font-weight: 700;
-  color: #969696;
-`;
-
-const Dropdown = styled.div`
-  display: flex;
-`;
-
-const DropdownIcon = styled.img`
-  width: 1.2vw;
-  height: 1.2vw;
-  margin-left: 0.4vw;
-`;
-
-const DropdownMenu = styled.div`
-  position: absolute;
-  top: 2.5vw;
-  left: 0;
-  background: white;
-  border: 0.05vw solid #ccc;
-  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1);
-  width: 100%;
-  z-index: 1;
-  max-height: 10vw;
-  overflow-y: auto;
-`;
-
-const DropdownItem = styled.div`
-  padding: 0.5vw;
-  cursor: pointer;
-  border-bottom: 0.05vw solid #eee;
-
-  &:hover {
-    background-color: #f1f1f1;
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
 const AddOptionButton = styled.button`
-  background: transparent;
-  border: 0.05vw solid #ccc;
-  border-radius: 0.2vw;
-  font-size: 1.2vw;
-  font-weight: bold;
+  border: none;
+  width: 1.7vw;
+  height: 1.7vw;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5vw;
-  margin-left: 0.5vw;
+  margin-left: 0.6vw;
   height: 1.8vw;
 `;
 
@@ -163,17 +98,25 @@ const OptionContainer = styled.div`
 `;
 
 const CompleteButton = styled.button`
-  background: var(--grey-box-text, #eeecec);
   display: flex;
+  height: 4vw;
+  padding: 1.2vw 6vw;
   justify-content: center;
   align-items: center;
+  gap: 0.4vw;
+  border-radius: 1.2vw;
+  border: 0.05vw solid #efefef;
+  background: ${({ isClickable }) => (isClickable ? "#558DFA" : "#efefef")};
+  color: ${({ isClickable }) => (isClickable ? "#fff" : "#aeaeae")};
+  text-align: center;
+  font-family: "Pretendard Variable";
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  color: #747272;
-  border: 0.05vw solid var(--grey-box-text, #eeecec);
+  cursor: ${({ isClickable }) => (isClickable ? "pointer" : "default")};
 `;
+
 const ButtonSection = styled.div`
   display: flex;
   width: 53vw;
@@ -182,70 +125,67 @@ const ButtonSection = styled.div`
   justify-content: flex-end;
 `;
 
+const OptionButtons = styled.div`
+  display: flex;
+  gap: 0.5vw;
+`;
+
+const MinusOptionButton = styled.button`
+  border: none;
+  width: 1.7vw;
+  height: 1.7vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.9vw;
+`;
+
 function CreateVote() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
-
-  const [selectedOption, setSelectedOption] = useState("");
-  const [selectedOption2, setSelectedOption2] = useState("");
+  const [title, setTitle] = useState("");
   const [options, setOptions] = useState(["", ""]);
-
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
-  const toggleDropdown2 = () => setIsDropdownOpen2(!isDropdownOpen2);
+  const [description, setDescription] = useState("");
+  const [isClickable, setIsClickable] = useState(false);
 
   const navigate = useNavigate();
   const moveVoteRegister = () => {
     navigate("/voteRegister");
   };
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsDropdownOpen(false);
-  };
-  const handleOptionClick2 = (option) => {
-    setSelectedOption2(option);
-    setIsDropdownOpen2(false);
+
+  const handleTitleChange = (value) => {
+    setTitle(value);
+    checkAllFields();
   };
 
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
     newOptions[index] = value;
     setOptions(newOptions);
+    checkAllFields();
+  };
+
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+    checkAllFields();
+  };
+
+  const checkAllFields = () => {
+    const isTitleValid = title.trim().length > 0;
+    const areOptionsValid = options.every((option) => option.trim().length > 0);
+    const isDescriptionValid = description.trim().length > 0;
+
+    setIsClickable(isTitleValid && areOptionsValid && isDescriptionValid);
   };
 
   const addOption = () => {
     setOptions([...options, ""]);
   };
 
-  const jobOptions = [
-    "개발 · 데이터",
-    "건축 · 시설",
-    "고객서비스 · 리테일",
-    "공공 · 복지",
-    "교육",
-    "금융 · 보험",
-    "기획 · 전략",
-    "디자인",
-    "마케팅 · 광고 · MD",
-    "물류 · 무역",
-    "미디어 · 문화 · 스포츠",
-    "법무 · 사무 · 총무",
-    "식품 · 음료",
-    "엔지니어링 · 설계",
-    "영업",
-    "운송 · 배송",
-    "의료 · 바이오",
-    "인사 · HR",
-    "제조 · 생산",
-    "회계 · 세무",
-  ];
-
-  const detailOptions = [
-    "디자인 전체",
-    "UI 디자이너",
-    "UI, GUI 디자이너",
-    "웹 디자이너",
-    "그래픽 디자이너",
-  ];
+  const removeOption = (index) => {
+    const newOptions = options.filter((_, i) => i !== index);
+    setOptions(newOptions);
+    checkAllFields();
+  };
 
   return (
     <>
@@ -255,48 +195,13 @@ function CreateVote() {
       <BodyContainer>
         <Box>
           <Section>
-            <Title>직무*</Title>
-            <Dropdown>
-              <DropdownContainer onClick={toggleDropdown}>
-                <DropdownText>{selectedOption || "전체"}</DropdownText>
-                <DropdownIcon src={down} />
-                {isDropdownOpen && (
-                  <DropdownMenu>
-                    {jobOptions.map((option) => (
-                      <DropdownItem
-                        key={option}
-                        onClick={() => handleOptionClick(option)}
-                      >
-                        {option}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                )}
-              </DropdownContainer>
-              <DropdownContainer2 onClick={toggleDropdown2}>
-                <DropdownText2>
-                  {selectedOption2 || "직군을 선택해주세요."}
-                </DropdownText2>
-                <DropdownIcon src={down} />
-                {isDropdownOpen2 && (
-                  <DropdownMenu>
-                    {detailOptions.map((option) => (
-                      <DropdownItem
-                        key={option}
-                        onClick={() => handleOptionClick2(option)}
-                      >
-                        {option}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                )}
-              </DropdownContainer2>
-            </Dropdown>
-          </Section>
-          <Section>
             <Title>제목*</Title>
             <InputContainer>
-              <Input placeholder="투표의 제목을 입력해주세요." />
+              <Input
+                placeholder="투표의 제목을 입력해주세요."
+                value={title}
+                onChange={(e) => handleTitleChange(e.target.value)}
+              />
             </InputContainer>
           </Section>
           <Section>
@@ -311,7 +216,16 @@ function CreateVote() {
                   />
                 </InputContainer>
                 {index === options.length - 1 && (
-                  <AddOptionButton onClick={addOption}>+</AddOptionButton>
+                  <OptionButtons>
+                    {options.length > 2 && (
+                      <MinusOptionButton onClick={() => removeOption(index)}>
+                        <img src={minus} alt="minus" />
+                      </MinusOptionButton>
+                    )}
+                    <AddOptionButton onClick={addOption}>
+                      <img src={plus} alt="plus" />
+                    </AddOptionButton>
+                  </OptionButtons>
                 )}
               </OptionContainer>
             ))}
@@ -320,13 +234,18 @@ function CreateVote() {
             <Title>투표의 설명*</Title>
             <InputContainer style={{ width: "57vw", height: "5vw" }}>
               <TextArea
-                rows="3"
+                rows="4"
                 placeholder="투표의 배경이 되는 설명을 100자 이내로 작성해주세요."
+                value={description}
+                onChange={(e) => handleDescriptionChange(e.target.value)}
               />
             </InputContainer>
           </Section>
           <ButtonSection>
-            <CompleteButton onClick={moveVoteRegister}>
+            <CompleteButton
+              onClick={moveVoteRegister}
+              isClickable={isClickable}
+            >
               작성 완료
             </CompleteButton>
           </ButtonSection>
