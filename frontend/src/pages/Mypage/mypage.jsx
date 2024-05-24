@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SelectionCategory from "./SelectionCategory";
 import Prescription from "./Prescription";
-import Opinion from "./Opinion";
+import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
 import MyVote from "./MyVote";
 
