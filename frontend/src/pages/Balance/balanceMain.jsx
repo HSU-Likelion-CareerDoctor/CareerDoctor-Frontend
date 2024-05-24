@@ -16,6 +16,7 @@ const StyledP = styled.p`
   font-weight: 700;
   line-height: normal;
   width: 60%;
+  margin-top: 4vw;
 `;
 
 const DropDownContainer = styled.p`
@@ -55,17 +56,7 @@ function BalanceMain() {
         text3="선배들에게 물어보세요!"
         text4="투표 올리기"
       />
-      <Container style={{ marginTop: "1.8vw" }}>
-        <StyledP>취업을 원하는 직무를 선택해주세요.</StyledP>
-      </Container>
-      <Container>
-        <DropDownContainer>
-          <DropDown>
-            전체 <img src={drop} style={{ width: "1.2vw", height: "0.87vw" }} />
-          </DropDown>
-          <StyledP>직무를 선택해주세요.</StyledP>
-        </DropDownContainer>
-      </Container>
+
       <Container>
         <StyledP>당신은 어떻게 생각하나요? 투표해주세요.</StyledP>
       </Container>
