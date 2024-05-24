@@ -9,6 +9,7 @@ import Signup from "./pages/Main/Signup";
 import Login from "./pages/Main/Login";
 import Mypage from "./pages/Mypage/mypage";
 import FeedbackPage from "./pages/Mypage/FeedbackPage";
+import Contact from "./pages/Spec/Contact";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/feedback" element={<FeedbackPage/>} />
+        <Route path="/spec" element={<Contact/>}/>
       </Routes>
     </Router>
   );
