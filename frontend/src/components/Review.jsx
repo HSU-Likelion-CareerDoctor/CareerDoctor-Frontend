@@ -14,7 +14,7 @@ const ReviewCard = styled.div`
   border-radius: 0.5vw;
   padding: 1vw;
   width: 30%;
-  box-shadow: 0 0.2vw 0.3vw rgba(0, 0, 0, 0.1);
+  box-shadow: 0vw 0vw 0.5vw 0vw rgba(0, 0, 0, 0.35);
 `;
 
 const UserInfo = styled.div`
@@ -36,18 +36,6 @@ const UserName = styled.div`
   color: #000;
   font-family: "Pretendard Variable";
   font-size: 0.8vw;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const UserJob = styled.div`
-  color: #666;
-  margin-left: 10vw;
-  color: #000;
-  text-align: right;
-  font-family: "Pretendard Variable";
-  font-size: 0.7vw;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -114,7 +102,6 @@ function Review({ name, job, review }) {
       <UserInfo>
         <Avatar />
         <UserName>{name}</UserName>
-        <UserJob>{job}</UserJob>
       </UserInfo>
       <ReviewBox>{review}</ReviewBox>
       <ButtonContainer>

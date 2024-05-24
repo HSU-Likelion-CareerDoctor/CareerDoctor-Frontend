@@ -1,10 +1,14 @@
-// Main.jsx
 import React from "react";
+import { useState } from "react";
 import Banner from "../../components/Banner";
 import styled from "styled-components";
 import Reviews from "../../components/Review"; // Review 컴포넌트 가져오기
 import CardList from "../../components/CardList";
-import drop from "../../img/dropdown_1.png";
+import review from "../../img/review.png";
+import emptyCircle from "../../img/emptyCircle.png";
+import fillCircle from "../../img/fillCircle.png";
+import right from "../../img/right.png";
+import left from "../../img/left.png";
 
 const SmallText = styled.span`
   color: #000;
@@ -70,12 +74,6 @@ const Container2 = styled.div`
 `;
 const Container3 = styled.div`
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 60%;
-`;
-const Container4 = styled.div`
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 5.2vw;
@@ -91,34 +89,6 @@ const StyledP = styled.p`
   width: 60%;
 `;
 
-const DropDownContainer = styled.p`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 60%;
-  align-items: center;
-`;
-
-const DropDown = styled.div`
-  display: inline-flex;
-  height: 0.8vw;
-  padding: 1.45vw 3.2vw;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4vw;
-  flex-shrink: 0;
-  border-radius: 0.3vw;
-  background: #eee;
-  color: #000;
-  text-align: center;
-  font-family: "PretendardVariable";
-  font-size: 1.2vw;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
 const Text = styled.span`
   color: #000;
   font-family: "PretendardVariable";
@@ -128,13 +98,37 @@ const Text = styled.span`
   line-height: normal;
 `;
 
-const Container5 = styled.div`
+const NextContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 0.8vw;
+  margin-top: 0.9vw;
 `;
 
 function Main() {
+  const [count, setCount] = useState(0);
+
+  const showPrevious = () => {
+    setCount((prevCount) => (prevCount - 1 + 4) % 4);
+  };
+
+  const showNext = () => {
+    setCount((prevCount) => (prevCount + 1) % 4);
+  };
+
+  const renderCircles = () => {
+    return Array.from({ length: 4 }).map((_, index) => {
+      return (
+        <img
+          key={index}
+          src={index === count ? fillCircle : emptyCircle}
+          alt={`circle-${index}`}
+        />
+      );
+    });
+  };
+
   return (
     <>
       <Banner
@@ -162,29 +156,43 @@ function Main() {
             후기 인증
           </span>
           <Reviews /> {/* Review 컴포넌트 추가 */}
+          <NextContainer>
+            <img
+              src={left}
+              style={{ cursor: "pointer" }}
+              onClick={showPrevious}
+              alt="left arrow"
+            />
+            {renderCircles()}
+            <img
+              src={right}
+              style={{ cursor: "pointer" }}
+              onClick={showNext}
+              alt="right arrow"
+            />
+          </NextContainer>
+          <img
+            src={review}
+            style={{
+              width: "100%",
+              height: "6vw",
+              marginTop: "1.3vw",
+              borderRadius: "0.4vw",
+              boxShadow: "0vw 0vw 0.5vw 0vw rgba(0, 0, 0, 0.25)",
+            }}
+            alt="review"
+          />
         </Section>
       </Container>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Container3 style={{ marginTop: "1.8vw" }}>
+        <Container3>
           <StyledP>취준생들의 스펙 고민을 듣고 투표해주세요!</StyledP>
-          <Text>취업을 원하는 직무를 선택해주세요.</Text>
+          <Text> 더보기</Text>
         </Container3>
       </div>
       <Container2>
-        <DropDownContainer>
-          <DropDown>
-            전체 <img src={drop} style={{ width: "1.2vw", height: "0.87vw" }} />
-          </DropDown>
-        </DropDownContainer>
-      </Container2>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Container4>
-          <StyledP>요즘 취준생들의 고민들, 취준밸런스</StyledP>
-          <Text> 더보기</Text>
-        </Container4>
-      </div>
-      <Container2>
-        <CardList numCards={5} />
+        <CardList initialNumCards={4} />
       </Container2>
     </>
   );
