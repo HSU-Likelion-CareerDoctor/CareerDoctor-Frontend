@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import heart from "../../img/Component4.png";
 import save from "../../img/Component3.png";
-import comment from "../../img/comment.png";
+import comment1 from "../../img/comment.png";
 
 // Styled-components 정의
 const Container = styled.div`
@@ -105,7 +105,6 @@ const InfoBox = styled.div`
 const ActionButton = styled.button`
   display: flex;
   flex-direction: column;
-  margin-right: 1vw;
   background: none;
   border: none;
   cursor: pointer;
@@ -181,7 +180,7 @@ const Context = styled.div`
   font-family: "PretendardVariable";
   font-size: 0.7vw;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 150%; /* 21px */
   margin-top: 0.8vw;
 `;
@@ -361,7 +360,7 @@ const VoteDetail = () => {
             <Count>3</Count>
           </ActionButton>
           <ActionButton>
-            <img src={comment} style={{ width: "1.6vw", height: "1.6vw" }} />
+            <img src={comment1} style={{ width: "1.6vw", height: "1.6vw" }} />
             <Count>14</Count>
           </ActionButton>
         </Actions>
