@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import LogoIcon from "../../img/logo3.png";
-
+import Config from "../../config/config";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,21 +11,21 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 13%;
-    height: auto;
-    margin-top:2vw;
-    margin-bottom: 2vw;
+  width: 13%;
+  height: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
 `;
 
 const Title = styled.div`
-    font-size: 1.5vw;
-    font-weight: bold;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    text-align: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  text-align: center;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -75,7 +76,7 @@ const CheckButton = styled.button`
   padding: 0.5vw 1vw;
   border: none;
   border-radius: 0.5vw;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   font-size: 0.8vw;
   cursor: pointer;
 
@@ -90,7 +91,7 @@ const SignupButton = styled.button`
   margin: 0.5vw 0;
   border: none;
   border-radius: 1vw;
-  background-color: #9BBDFF;
+  background-color: #9bbdff;
   color: white;
   font-size: 1vw;
   cursor: pointer;
@@ -106,7 +107,7 @@ const LoginButton = styled.button`
   margin: 0.5vw 0;
   border: none;
   border-radius: 1vw;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   font-size: 1vw;
   cursor: pointer;
 
@@ -115,34 +116,67 @@ const LoginButton = styled.button`
   }
 `;
 
-
-
 const Message = styled.p`
-  color: ${props => (props.isValid ? "green" : "red")};
+  color: ${(props) => (props.isValid ? "green" : "red")};
   margin-bottom: 1vw;
 `;
 
 const Signup = () => {
-  const [username, setUsername] = useState("");
   const [isUsernameValid, setIsUsernameValid] = useState(null);
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+    setUserId(e.target.value);
     setIsUsernameValid(null);
-    setMessage("");
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const checkUsername = () => {
     // 여기서 실제 서버 API를 호출하도록 수정해야 함
     // 예: axios.get(`/api/check-username?username=${username}`)
     const existingUsernames = ["user1", "user2", "user3"];
-    if (existingUsernames.includes(username)) {
+    if (existingUsernames.includes(userId)) {
       setIsUsernameValid(false);
       setMessage("이미 사용 중인 아이디입니다.");
     } else {
       setIsUsernameValid(true);
       setMessage("사용 가능한 아이디입니다.");
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handleRegister = async () => {
+    try {
+      const response = await fetch(
+        `${Config.baseURL}/api/careerdoctor/signup`,
+        {
+          method: "POST",
+          headers: Config.headers,
+          body: JSON.stringify({
+            userId: userId,
+            password: password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.status === 201) {
+        alert("회원가입에 성공하였습니다.");
+        navigate("/login");
+      } else {
+        alert("회원가입 실패");
+      }
+    } catch (error) {
+      alert("에러 발생");
+      console.log(error);
     }
   };
 
@@ -154,21 +188,30 @@ const Signup = () => {
         <Label>아이디</Label>
         <InputGroup>
           <Input
-            type="text" 
-            placeholder="아이디를 입력해주세요." 
-            value={username} 
-            onChange={handleUsernameChange} 
+            type="text"
+            placeholder="아이디를 입력해주세요."
+            value={userId}
+            onChange={handleUsernameChange}
           />
-          <CheckButton type="button" onClick={checkUsername}>중복 확인</CheckButton>
+          <CheckButton type="button" onClick={checkUsername}>
+            중복 확인
+          </CheckButton>
         </InputGroup>
-        {isUsernameValid !== null && <Message isValid={isUsernameValid}>{message}</Message>}
+        {isUsernameValid !== null && (
+          <Message isValid={isUsernameValid}>{message}</Message>
+        )}
         <Label>비밀번호</Label>
-        <Input type="password" placeholder="비밀번호를 입력해주세요." />
+        <Input
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+          value={password}
+          onChange={handlePasswordChange}
+        />
         <Note>※ 영문, 숫자를 포함한 8자리 이상</Note>
         <Label>비밀번호 확인</Label>
         <Input type="password" placeholder="비밀번호를 입력해주세요." />
         <Button>
-          <SignupButton type="submit">회원가입</SignupButton>
+          <SignupButton onClick={handleRegister}>회원가입</SignupButton>
           <LoginButton type="button">로그인</LoginButton>
         </Button>
       </Form>
