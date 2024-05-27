@@ -9,6 +9,8 @@ import emptyCircle from "../../img/emptyCircle.png";
 import fillCircle from "../../img/fillCircle.png";
 import right from "../../img/right.png";
 import left from "../../img/left.png";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const SmallText = styled.span`
   color: #000;
@@ -131,6 +133,7 @@ function Main() {
 
   return (
     <>
+      <Header />
       <Banner
         text1="자꾸 떨어지는 이유가 궁금하신가요?"
         text2="지금 바로"
@@ -194,6 +197,7 @@ function Main() {
       <Container2>
         <CardList initialNumCards={4} />
       </Container2>
+      <Footer />
     </>
   );
 }

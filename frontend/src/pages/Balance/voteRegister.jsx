@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
 
 const Section = styled.div`
   display: flex;
@@ -94,6 +95,7 @@ function VoteRegister() {
   const moveOther = () => navigate("/balanceMain");
   return (
     <>
+      <Header />
       <Section>
         <Container>
           <Title>투표 등록 완료!</Title>
