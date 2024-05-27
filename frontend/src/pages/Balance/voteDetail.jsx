@@ -3,6 +3,8 @@ import styled from "styled-components";
 import heart from "../../img/Component4.png";
 import save from "../../img/Component3.png";
 import comment1 from "../../img/comment.png";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 // Styled-components 정의
 const Container = styled.div`
@@ -17,7 +19,7 @@ const Content = styled.div`
   padding: 2vw;
 `;
 
-const Header = styled.div`
+const HeaderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -266,7 +268,7 @@ const PostHeader = ({ isAuthor }) => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
-    <Header>
+    <HeaderBox>
       <UserInfo>
         <Avatar />
         <InfoBox>
@@ -284,7 +286,7 @@ const PostHeader = ({ isAuthor }) => {
           </DropdownMenu>
         )}
       </MenuIcon>
-    </Header>
+    </HeaderBox>
   );
 };
 
@@ -332,55 +334,59 @@ const VoteDetail = () => {
   };
 
   return (
-    <Container>
-      <Content>
-        <PostHeader isAuthor={isAuthor} />
-        <Title>
-          A 공모전이랑 B 동아리랑 준비 기간이 겹쳐서 하나만 해야할 것 같은데
-          어떤 것을 하는게 좋을까요?
-        </Title>
-        <Context>
-          현재 동아리는 1회 공모전은 경험이 없어요. 어떤걸 선택하는것이
-          좋을까요? <br />
-          취준생 선배님들 도와주세요! 현재 동아리는 1회 공모전은 경험이 없어요.
-          어떤 걸 선택하는 것이 좋을까요?
-          <br /> 취준생 선배님들 도와주세요!
-        </Context>
-        <PollOptions>
-          <OptionButton>A 공모전</OptionButton>
-          <OptionButton>B 동아리</OptionButton>
-        </PollOptions>
-        <Actions>
-          <ActionButton>
-            <img src={heart} style={{ width: "1.6vw", height: "1.6vw" }} />
-            <Count>10</Count>
-          </ActionButton>
-          <ActionButton>
-            <img src={save} style={{ width: "1.6vw", height: "1.6vw" }} />
-            <Count>3</Count>
-          </ActionButton>
-          <ActionButton>
-            <img src={comment1} style={{ width: "1.6vw", height: "1.6vw" }} />
-            <Count>14</Count>
-          </ActionButton>
-        </Actions>
-        <CommentsSection>
-          <CommentTitle>댓글</CommentTitle>
-          <CommentInput
-            placeholder="투표의 배경이 되는 설명을 100자 이내로 작성해주세요."
-            value={comment}
-            onChange={(e) => handleComment(e.target.value)}
-          />
-          <ButtonSection>
-            <CommentButton isClickable={isClickable}>
-              <Submit isClickable={isClickable}>등록</Submit>
-            </CommentButton>
-          </ButtonSection>
-          <CommentComponent isAuthor={isAuthor} />
-          <CommentComponent isAuthor={isAuthor} />
-        </CommentsSection>
-      </Content>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Content>
+          <PostHeader isAuthor={isAuthor} />
+          <Title>
+            A 공모전이랑 B 동아리랑 준비 기간이 겹쳐서 하나만 해야할 것 같은데
+            어떤 것을 하는게 좋을까요?
+          </Title>
+          <Context>
+            현재 동아리는 1회 공모전은 경험이 없어요. 어떤걸 선택하는것이
+            좋을까요? <br />
+            취준생 선배님들 도와주세요! 현재 동아리는 1회 공모전은 경험이
+            없어요. 어떤 걸 선택하는 것이 좋을까요?
+            <br /> 취준생 선배님들 도와주세요!
+          </Context>
+          <PollOptions>
+            <OptionButton>A 공모전</OptionButton>
+            <OptionButton>B 동아리</OptionButton>
+          </PollOptions>
+          <Actions>
+            <ActionButton>
+              <img src={heart} style={{ width: "1.6vw", height: "1.6vw" }} />
+              <Count>10</Count>
+            </ActionButton>
+            <ActionButton>
+              <img src={save} style={{ width: "1.6vw", height: "1.6vw" }} />
+              <Count>3</Count>
+            </ActionButton>
+            <ActionButton>
+              <img src={comment1} style={{ width: "1.6vw", height: "1.6vw" }} />
+              <Count>14</Count>
+            </ActionButton>
+          </Actions>
+          <CommentsSection>
+            <CommentTitle>댓글</CommentTitle>
+            <CommentInput
+              placeholder="투표의 배경이 되는 설명을 100자 이내로 작성해주세요."
+              value={comment}
+              onChange={(e) => handleComment(e.target.value)}
+            />
+            <ButtonSection>
+              <CommentButton isClickable={isClickable}>
+                <Submit isClickable={isClickable}>등록</Submit>
+              </CommentButton>
+            </ButtonSection>
+            <CommentComponent isAuthor={isAuthor} />
+            <CommentComponent isAuthor={isAuthor} />
+          </CommentsSection>
+        </Content>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

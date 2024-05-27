@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import down from "../../img/down.png";
 import { useNavigate } from "react-router-dom";
 import plus from "../../img/Group 53.png";
 import minus from "../../img/minus.png";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 // Styled-components 정의
 const MainContainer = styled.div`
@@ -189,6 +190,7 @@ function CreateVote() {
 
   return (
     <>
+      <Header />
       <MainContainer>
         <MainTitle>고민되는 내용을 적어보세요!</MainTitle>
       </MainContainer>
@@ -251,6 +253,7 @@ function CreateVote() {
           </ButtonSection>
         </Box>
       </BodyContainer>
+      <Footer />
     </>
   );
 }

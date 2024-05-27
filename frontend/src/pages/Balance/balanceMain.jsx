@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Banner from "../../components/Banner";
-import drop from "../../img/dropdown_1.png";
 import CardList from "../../components/CardList";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const Container = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ const DropDown = styled.div`
 function BalanceMain() {
   return (
     <>
+      <Header />
       <Banner
         text1="무슨 활동을 선택 해야할 지 고민이신가요?"
         text2="지금 바로"
@@ -63,6 +65,7 @@ function BalanceMain() {
       <Container>
         <CardList initialNumCards={4} incrementNumCards={4} />
       </Container>
+      <Footer />
     </>
   );
 }
