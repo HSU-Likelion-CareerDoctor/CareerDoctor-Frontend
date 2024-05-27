@@ -12,7 +12,7 @@ const FormDiv = styled.div`
 const Footer = styled.div`
 	display: flex;
 `;
-export default function Page2({ ButtonText, ClickEvent }) {
+export default function Page2({ ButtonText, ClickEvent,name }) {
 	return (
 		<>
 			<Section>
@@ -58,16 +58,32 @@ export default function Page2({ ButtonText, ClickEvent }) {
 
 					<input type="text" placeholder="전공명"></input>
 					<label>평균학점</label>
-					<input type="text" id="admission-date" placeholder="" />
+					<input type="text" id="admission-date" placeholder="4.0 / 4.5"/>
 				</FormDiv>
 				<FormDiv>
-					<styledP>이름</styledP>
-					<input type="text" placeholder="YYYY   /   MM   /   DD"></input>
+					<styledP>자격증</styledP>
+					<input type="text" placeholder="자격증명"></input>
 				</FormDiv>
 				<FormDiv>
-					<styledP>이름</styledP>
-					<input type="button" value="남성"></input>
-					<input type="button" value="여성"></input>
+					<styledP>대외활동</styledP>
+					<input type="text" placeholder="대외활동명"></input>
+				</FormDiv>
+				<FormDiv>
+					<styledP>언어능력</styledP>
+					<input type="text" placeholder="언어명"></input>
+				</FormDiv>
+				<FormDiv>
+					<styledP>경력사항</styledP>
+					<input type="text" placeholder="인턴/경력 활동명"></input>
+				</FormDiv>
+				<FormDiv>
+					<styledP>기타스펙</styledP>
+					<input type="text" placeholder="스펙명"></input>
+				</FormDiv>
+
+
+				<FormDiv>
+					<styledP>지금 입력해놓은 정보가 {name}님의 이력서 정리를 도와줄거예요!</styledP>
 				</FormDiv>
 			</Section>
 			<Footer>
