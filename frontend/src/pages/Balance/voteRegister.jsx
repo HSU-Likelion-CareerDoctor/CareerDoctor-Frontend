@@ -1,6 +1,8 @@
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
+import check from "../../img/check.gif";
 
 const Section = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Title = styled.div`
   color: #000;
   font-family: "PretendardVariable";
@@ -29,7 +32,7 @@ const Title = styled.div`
   line-height: normal;
 `;
 
-const Gif = styled.div`
+const Gif = styled.img`
   width: 14vw;
   height: 14vw;
   flex-shrink: 0;
@@ -48,6 +51,7 @@ const Text = styled.div`
   line-height: 150%; /* 36px */
   margin-top: 2.1vw;
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
   margin-top: 4.85vw;
@@ -71,6 +75,7 @@ const Button1 = styled.div`
   line-height: 150%; /* 36px */
   margin-right: 2vw;
 `;
+
 const Button2 = styled.div`
   display: flex;
   width: 10vw;
@@ -91,15 +96,17 @@ const Button2 = styled.div`
 
 function VoteRegister() {
   const navigate = useNavigate();
-  const moveMyPage = () => navigate("/#");
+  const moveMyPage = () => navigate("/mypage");
   const moveOther = () => navigate("/balanceMain");
+  const gifSrc = `${check}?${new Date().getTime()}`; // Cache-busting query string
+
   return (
     <>
       <Header />
       <Section>
         <Container>
           <Title>투표 등록 완료!</Title>
-          <Gif></Gif>
+          <Gif src={gifSrc} alt="Check animation" />
           <Text>
             투표 등록이 완료되었어요! <br />
             취준생 친구들의 의견을 기다려봐요!
