@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Card from "./Card";
+import { useEffect } from "react";
+import Config from "../config/config";
 
 const CardListContainer = styled.div`
   display: flex;
@@ -43,6 +45,8 @@ const Container = styled.div`
 
 function CardList({ initialNumCards, incrementNumCards }) {
   const [numCards, setNumCards] = useState(initialNumCards);
+  const [data, setData] = useState([]);
+
   const location = useLocation(); // 현재 url
 
   const handleLoadMore = () => {
@@ -52,13 +56,43 @@ function CardList({ initialNumCards, incrementNumCards }) {
   // 조건부 url 일때 버튼 보임
   const shouldShowLoadMoreButton = location.pathname !== "/";
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${Config.baseURL}/api/careerdoctor/posts`,
+          {
+            method: "GET",
+            headers: Config.headers,
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+
+        if (response.status === 201) {
+          setData(data);
+        } else {
+          alert("데이터를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        alert("에러 발생");
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Container>
         <CardListContainer>
-          {Array.from({ length: numCards }).map((_, index) => (
-            <Card key={index} index={index} />
-          ))}
+          {data.length != 0 &&
+            data.data
+              .slice(0, numCards)
+              .map((item, index) => <Card key={index} item={item} />)}
+          {/* 컴포넌트 랜더링 후 이펙트가 발생하기 때문에 data.length !=0로 판단 */}
         </CardListContainer>
       </Container>
       {shouldShowLoadMoreButton && (
