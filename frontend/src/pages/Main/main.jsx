@@ -104,6 +104,7 @@ const Text = styled.span`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 
 const NextContainer = styled.div`
@@ -209,7 +210,7 @@ function Main() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Container3>
           <StyledP>취준생들의 스펙 고민을 듣고 투표해주세요!</StyledP>
-          <Text> 더보기</Text>
+          <Text onClick={() => navigate("/balanceMain")}> 더보기</Text>
         </Container3>
       </div>
       <Container2>

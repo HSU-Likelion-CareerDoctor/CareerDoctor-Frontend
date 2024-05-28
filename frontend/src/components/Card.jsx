@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import heart from "../img/Component4.png";
 import save from "../img/Component3.png";
+import { useEffect } from "react";
+import Config from "../config/config";
+import { useState } from "react";
 
 const CardContainer = styled.div`
   width: 49%;
@@ -145,22 +148,35 @@ const Count = styled.div`
   font-weight: 700;
   line-height: normal;
 `;
+function calculateTimeAgo(inputTime) {
+  const now = new Date();
+  const past = new Date(inputTime);
 
-function Card({ index }) {
+  const diffInMs = now - past;
+
+  if (diffInMs < 1000 * 60 * 60 * 24) {
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+    return `${diffInHours}시간 전`;
+  } else {
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    return `${diffInDays}일 전`;
+  }
+}
+
+function Card({ item }) {
+  const timeAgo = calculateTimeAgo(item.createdAt);
+
   return (
     <CardContainer>
       <Header>
         <Profile>
           <ProfileImage />
-          <Username>닉네ㅇㅇㅇㅇㅇㅇㅇ님</Username>
+          <Username>{item.userId}</Username>
         </Profile>
-        <TimeAgo>365일 전</TimeAgo>
+        <TimeAgo>{timeAgo}</TimeAgo>
       </Header>
       <ActionRow>
-        <Title>
-          제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목 제목
-          제목 제목 제목 제목 제목
-        </Title>
+        <Title>{item.postTitle}</Title>
         <ActionRow2>
           <LikesAndComments>
             <div>
@@ -169,22 +185,17 @@ function Card({ index }) {
                 style={{ width: "1.2vw", height: "1.2vw" }}
               ></img>
             </div>
-            <Count>10</Count>
+            <Count>{item.likeCount}</Count>
           </LikesAndComments>
           <LikesAndComments>
             <div>
               <img src={save} style={{ width: "1.2vw", height: "1.2vw" }}></img>
             </div>
-            <Count>10</Count>
+            <Count>{item.scrapCount}</Count>
           </LikesAndComments>
         </ActionRow2>
       </ActionRow>
-      <Content>
-        어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구
-        어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구
-        어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구
-        어쩌구 저쩌구
-      </Content>
+      <Content>{item.postContent}</Content>
       <VoteSection>
         <VoteOption>
           <TextContainer>

@@ -171,7 +171,7 @@ const Login = () => {
       if (response.status === 200) {
         alert("로그인에 성공하였습니다.");
         localStorage.setItem("isLogined", true);
-        localStorage.setItem("userId", userId);
+        localStorage.setItem("userId", data.data);
         navigate("/");
       } else {
         alert("로그인 실패");
