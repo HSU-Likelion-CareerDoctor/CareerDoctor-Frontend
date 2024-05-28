@@ -9,7 +9,10 @@ import Signup from "./pages/Main/Signup";
 import Login from "./pages/Main/Login";
 import Mypage from "./pages/Mypage/mypage";
 import FeedbackPage from "./pages/Mypage/FeedbackPage";
-import Contact from "./pages/Spec/Contact";
+import SpecDiagnosis from "./pages/Spec/SpecDiagnosis";
+
+import SpecOpinion from './pages/Spec/SpecOpinion'
+
 
 function App() {
   return (
@@ -23,8 +26,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/feedback" element={<FeedbackPage/>} />
-        <Route path="/spec" element={<Contact/>}/>
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/spec" element={<SpecDiagnosis />} />
+        <Route path="/specOpinion" element={<SpecOpinion />} />
       </Routes>
     </Router>
   );
