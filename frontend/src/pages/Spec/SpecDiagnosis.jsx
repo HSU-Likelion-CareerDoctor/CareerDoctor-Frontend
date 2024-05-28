@@ -24,7 +24,7 @@ function SpecDiagnosis() {
 		<>
 			<Container>
 				{/* headr */}
-				<Header></Header>
+				<Header/>
 
 				{/* body */}
 				<div>
