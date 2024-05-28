@@ -5,6 +5,7 @@ import plus from "../../img/Group 53.png";
 import minus from "../../img/minus.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Config from "../../config/config";
 
 // Styled-components 정의
 const MainContainer = styled.div`
@@ -143,15 +144,12 @@ const MinusOptionButton = styled.button`
 `;
 
 function CreateVote() {
-  const [title, setTitle] = useState("");
+  const [postTitle, setTitle] = useState("");
   const [options, setOptions] = useState(["", ""]);
   const [description, setDescription] = useState("");
   const [isClickable, setIsClickable] = useState(false);
 
   const navigate = useNavigate();
-  const moveVoteRegister = () => {
-    navigate("/voteRegister");
-  };
 
   const handleTitleChange = (value) => {
     setTitle(value);
@@ -171,7 +169,7 @@ function CreateVote() {
   };
 
   const checkAllFields = () => {
-    const isTitleValid = title.trim().length > 0;
+    const isTitleValid = postTitle.trim().length > 0;
     const areOptionsValid = options.every((option) => option.trim().length > 0);
     const isDescriptionValid = description.trim().length > 0;
 
@@ -188,6 +186,40 @@ function CreateVote() {
     checkAllFields();
   };
 
+  const handleRegister = async () => {
+    try {
+      const requestBody = {
+        postTitle: postTitle,
+        vote: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
+        postContent: description,
+      };
+
+      const response = await fetch(
+        `${Config.baseURL}/api/careerdoctor/write-post`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.status === 200) {
+        alert("취준밸런스 투표올리기에 성공했습니다.");
+        navigate("/voteRegister");
+      } else {
+        alert("투표 올리기 실패");
+      }
+    } catch (error) {
+      alert("에러 발생");
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -201,7 +233,7 @@ function CreateVote() {
             <InputContainer>
               <Input
                 placeholder="투표의 제목을 입력해주세요."
-                value={title}
+                value={postTitle}
                 onChange={(e) => handleTitleChange(e.target.value)}
               />
             </InputContainer>
@@ -244,10 +276,7 @@ function CreateVote() {
             </InputContainer>
           </Section>
           <ButtonSection>
-            <CompleteButton
-              onClick={moveVoteRegister}
-              isClickable={isClickable}
-            >
+            <CompleteButton onClick={handleRegister} isClickable={isClickable}>
               작성 완료
             </CompleteButton>
           </ButtonSection>
