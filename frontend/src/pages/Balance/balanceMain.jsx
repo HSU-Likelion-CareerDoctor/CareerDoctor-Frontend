@@ -3,6 +3,7 @@ import Banner from "../../components/Banner";
 import CardList from "../../components/CardList";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ const DropDown = styled.div`
 `;
 
 function BalanceMain() {
+  const navigate = useNavigate();
   return (
     <>
       <Header />
@@ -57,6 +59,7 @@ function BalanceMain() {
         text2="지금 바로"
         text3="선배들에게 물어보세요!"
         text4="투표 올리기"
+        move = {() => {navigate("/createVote")}}
       />
 
       <Container>
