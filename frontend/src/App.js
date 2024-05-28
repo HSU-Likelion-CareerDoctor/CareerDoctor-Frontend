@@ -11,7 +11,8 @@ import Mypage from "./pages/Mypage/mypage";
 import FeedbackPage from "./pages/Mypage/FeedbackPage";
 import SpecDiagnosis from "./pages/Spec/SpecDiagnosis";
 
-import SpecOpinion from './pages/Spec/SpecOpinion'
+import SpecOpinion from './pages/Spec/SpecOpinion';
+import CreateOpinion from "./pages/Spec/createOpinion";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage />} />
         <Route path="/spec" element={<SpecDiagnosis />} />
         <Route path="/specOpinion" element={<SpecOpinion />} />
+        <Route path="/createOpinion" element={<CreateOpinion />} />
       </Routes>
     </Router>
   );

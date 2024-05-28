@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Banner from "../../components/Banner";
 import Header from "../../components/Header";
 
 function SpecOpinion() {
+	const navigate = useNavigate();
 	return (
 		<>
 			<Header></Header>
@@ -11,6 +13,7 @@ function SpecOpinion() {
 				text2="지금 바로"
 				text3="피드백을 받아보세요!"
 				text4="소견서 신청하기"
+				move = {() => {navigate("/createOpinion")}}
 			></Banner>
 
 			<div>
