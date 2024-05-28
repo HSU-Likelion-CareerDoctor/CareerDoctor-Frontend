@@ -144,6 +144,7 @@ const MinusOptionButton = styled.button`
 `;
 
 function CreateVote() {
+  const [userId, setUserId] = useState("");
   const [postTitle, setTitle] = useState("");
   const [options, setOptions] = useState(["", ""]);
   const [description, setDescription] = useState("");
@@ -186,13 +187,18 @@ function CreateVote() {
     checkAllFields();
   };
 
+  const usersId = localStorage.getItem("userId");
+
   const handleRegister = async () => {
     try {
       const requestBody = {
+        userId: usersId,
         postTitle: postTitle,
-        vote: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
+        votes: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
         postContent: description,
       };
+
+      console.log(requestBody);
 
       const response = await fetch(
         `${Config.baseURL}/api/careerdoctor/write-post`,
@@ -208,7 +214,7 @@ function CreateVote() {
       const data = await response.json();
       console.log(data);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         alert("취준밸런스 투표올리기에 성공했습니다.");
         navigate("/voteRegister");
       } else {
