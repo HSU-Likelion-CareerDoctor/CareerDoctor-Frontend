@@ -4,7 +4,6 @@ import SelectionCategory from "./SelectionCategory";
 import Prescription from "./Prescription";
 import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
-import MyVote from "./MyVote";
 
 const PageContainer = styled.div`
   display: flex;
@@ -18,7 +17,7 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
+  width: 80%;
   max-width: 1100px;
   padding: 20px;
   background-color: #ffffff;
@@ -118,7 +117,7 @@ const SelectionBarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 2vw;
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   background-color: #efefef;
 `;
@@ -135,15 +134,15 @@ const SelectionButton = styled.button`
   color: black;
   transition: color 0.3s;
 
-  &:hover {
-    color: #ffffff;
-    background-color: #007bff;
-  }
+  // &:hover {
+  //   color: #ffffff;
+  //   background-color: #007bff;
+  // }
 
   &::after {
     content: "";
     position: absolute;
-    left: 0;
+    left: 0vw;
     bottom: -0.2vw; /* 버튼 하단에서 약간의 간격 */
     width: 100%;
     height: 0.2vw;
@@ -228,9 +227,6 @@ const MyPage = () => {
       {showPrescription && <Prescription />}
       {showOpinion && <Opinion />}
       {showBalance && <Balance />}
-      {showMyVote && (
-        <MyVote /> // MyVote 컴포넌트 추가
-      )}
     </PageContainer>
   );
 };
