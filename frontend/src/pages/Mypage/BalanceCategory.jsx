@@ -3,6 +3,7 @@ import styled from "styled-components";
 import likeIcon from '../../img/like.png';
 import saveIcon from '../../img/save.png';
 import MyVote from './MyVote';
+import MyLike from './Like'; 
 
 const SelectionCategoryContainer = styled.div`
   display: flex;
@@ -208,17 +209,26 @@ const BalanceCategory = () => {
   const [showMyParticipationVotes, setShowMyParticipationVotes] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [saveCount, setSaveCount] = useState(0);
-  const [displayedVotes, setDisplayedVotes] = useState(6); // 초기 표시 항목 수 6으로 설정
+  const [displayedVotes, setDisplayedVotes] = useState(6);
+  const [showMyLike, setShowMyLike] = useState(false);
 
   const handleMyVoteClick = () => {
     setShowMyVotes(true);
     setShowMyParticipationVotes(false);
+    setShowMyLike(false);
     setDisplayedVotes(6); // 항목 수 초기화
   };
 
   const handleMyParticipationVoteClick = () => {
     setShowMyVotes(false);
     setShowMyParticipationVotes(true);
+    setShowMyLike(false);
+  };
+
+  const handleLikeCategoryClick = () => {
+    setShowMyVotes(false);
+    setShowMyParticipationVotes(false);
+    setShowMyLike(true);
   };
 
   const handleLikeClick = () => {
@@ -238,7 +248,7 @@ const BalanceCategory = () => {
       <SelectionCategoryContainer>
         <Category onClick={handleMyVoteClick}>내가 올린 투표</Category>
         <Category onClick={handleMyParticipationVoteClick}>내가 참여한 투표</Category>
-        <Category>좋아요</Category>
+        <Category onClick={handleLikeCategoryClick}>좋아요</Category>
         <Category>스크랩</Category>
       </SelectionCategoryContainer>
 
@@ -285,7 +295,9 @@ const BalanceCategory = () => {
       {showMyParticipationVotes && (
         <MyVote />
       )}
-      
+
+      {showMyLike && <MyLike />}
+
       {showMyVotes && (
         <AddBox onClick={handleAddMoreClick}>더보기</AddBox>
       )}
