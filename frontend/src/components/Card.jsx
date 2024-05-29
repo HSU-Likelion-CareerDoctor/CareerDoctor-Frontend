@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import heart from "../img/Component4.png";
 import save from "../img/Component3.png";
-import { useEffect } from "react";
-import Config from "../config/config";
-import { useState } from "react";
 
 const CardContainer = styled.div`
   width: 49%;
@@ -97,23 +94,29 @@ const LikesAndComments = styled.div`
 `;
 
 const VoteSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 0.8vw;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-right: 1vw;
+  gap: 1vw 1.8vw;
 `;
 
 const VoteOption = styled.div`
-  width: 13.3vw;
+  width: 100%;
   height: 4vw;
   padding: 0.4vw;
-  border: 0.1vw solid #558dfa;
+  border: ${({ clicked }) => (clicked ? "0.1vw solid #558DFA;" : "none")};
   border-radius: 0.4vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f8ff;
+  background: ${({ clicked }) => (clicked ? "#C0E5FF" : "#ebebeb")};
   font-weight: bold;
-  color: #558dfa;
+  color: ${({ clicked }) => (clicked ? "#000000" : "#000000")};
+  cursor: pointer;
+
+  &:hover {
+    border: 0.1vw solid #558dfa;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -123,7 +126,7 @@ const TextContainer = styled.div`
 `;
 
 const SmallText = styled.span`
-  color: #000;
+  color: inherit;
   font-family: "PretendardVariable";
   font-size: 0.7vw;
   font-style: normal;
@@ -132,7 +135,7 @@ const SmallText = styled.span`
 `;
 
 const BigText = styled.span`
-  color: #000;
+  color: inherit;
   font-family: "PretendardVariable";
   font-size: 1.2vw;
   font-style: normal;
@@ -148,6 +151,7 @@ const Count = styled.div`
   font-weight: 700;
   line-height: normal;
 `;
+
 function calculateTimeAgo(inputTime) {
   const now = new Date();
   const past = new Date(inputTime);
@@ -164,7 +168,12 @@ function calculateTimeAgo(inputTime) {
 }
 
 function Card({ item }) {
+  const [selectedOption, setSelectedOption] = useState(null);
   const timeAgo = calculateTimeAgo(item.createdAt);
+
+  const handleVoteClick = (index) => {
+    setSelectedOption(index);
+  };
 
   return (
     <CardContainer>
@@ -197,18 +206,18 @@ function Card({ item }) {
       </ActionRow>
       <Content>{item.postContent}</Content>
       <VoteSection>
-        <VoteOption>
-          <TextContainer>
-            <BigText>60%</BigText>
-            <SmallText>A</SmallText>
-          </TextContainer>
-        </VoteOption>
-        <VoteOption>
-          <TextContainer>
-            <BigText>60%</BigText>
-            <SmallText>B</SmallText>
-          </TextContainer>
-        </VoteOption>
+        {item.vote.map((vote, index) => (
+          <VoteOption
+            key={index}
+            clicked={selectedOption === index}
+            onClick={() => handleVoteClick(index)}
+          >
+            <TextContainer>
+              <BigText>{vote.percentage}%</BigText>
+              <SmallText>{vote.voteContent}</SmallText>
+            </TextContainer>
+          </VoteOption>
+        ))}
       </VoteSection>
     </CardContainer>
   );

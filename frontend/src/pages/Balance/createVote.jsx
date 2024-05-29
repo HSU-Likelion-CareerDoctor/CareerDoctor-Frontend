@@ -193,7 +193,7 @@ function CreateVote() {
       const requestBody = {
         userId: userId,
         postTitle: postTitle,
-        votes: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
+        vote: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
         postContent: description,
       };
 
