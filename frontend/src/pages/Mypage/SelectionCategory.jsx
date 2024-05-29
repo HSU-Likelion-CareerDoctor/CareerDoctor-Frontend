@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const SelectionCategoryContainer = styled.div`
   display: flex;
-  width: 80%;
+  width: 60%;
   max-width: 1200px;
 `;
 
