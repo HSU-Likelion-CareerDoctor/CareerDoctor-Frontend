@@ -63,6 +63,7 @@ function Header(props) {
     navigate("/signup");
   };
   const moveMyPage = () => {
+    
     navigate("/mypage");
   };
 
