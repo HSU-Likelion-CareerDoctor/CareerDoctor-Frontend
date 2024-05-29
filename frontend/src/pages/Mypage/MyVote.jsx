@@ -8,7 +8,7 @@ const MyVoteContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 1vw;
   margin-top: 2vw;
-  width: 70%;
+  width: 60%;
 `;
 
 const VoteBox = styled.div`
