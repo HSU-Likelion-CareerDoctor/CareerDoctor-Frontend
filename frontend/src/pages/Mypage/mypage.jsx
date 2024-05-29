@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SelectionCategory from "./SelectionCategory";
 import Prescription from "./Prescription";
 import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
+import Header from "../../components/Header";
 
 const PageContainer = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 60%;
   max-width: 1100px;
   padding: 20px;
   background-color: #ffffff;
@@ -117,7 +118,7 @@ const SelectionBarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 2vw;
-  width: 80%;
+  width: 60%;
   max-width: 1200px;
   background-color: #efefef;
 `;
@@ -183,7 +184,34 @@ const MyPage = () => {
     setShowMyVote(true);
   };
 
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const url = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json', 
+       
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }, [userId]); 
+
   return (
+    <>
+    <Header/>
     <PageContainer>
       <ProfileSection>
         <ProfileImage></ProfileImage>
@@ -228,6 +256,7 @@ const MyPage = () => {
       {showOpinion && <Opinion />}
       {showBalance && <Balance />}
     </PageContainer>
+    </>
   );
 };
 

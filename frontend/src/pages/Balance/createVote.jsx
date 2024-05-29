@@ -144,7 +144,6 @@ const MinusOptionButton = styled.button`
 `;
 
 function CreateVote() {
-  const [userId, setUserId] = useState("");
   const [postTitle, setTitle] = useState("");
   const [options, setOptions] = useState(["", ""]);
   const [description, setDescription] = useState("");
@@ -187,12 +186,12 @@ function CreateVote() {
     checkAllFields();
   };
 
-  const usersId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
 
   const handleRegister = async () => {
     try {
       const requestBody = {
-        userId: usersId,
+        userId: userId,
         postTitle: postTitle,
         votes: options.map((option) => ({ voteTitle: option, voteCount: 0 })),
         postContent: description,
