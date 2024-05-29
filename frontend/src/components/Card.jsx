@@ -170,9 +170,16 @@ function calculateTimeAgo(inputTime) {
 function Card({ item }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const timeAgo = calculateTimeAgo(item.createdAt);
+  const initialCount = item.vote.reduce(
+    (total, vote) => total + vote.voteCount,
+    0
+  );
+  const [count, setCount] = useState(initialCount);
 
   const handleVoteClick = (index) => {
     setSelectedOption(index);
+    setCount(count + 1);
+    console.log(count);
   };
 
   return (
@@ -213,7 +220,7 @@ function Card({ item }) {
             onClick={() => handleVoteClick(index)}
           >
             <TextContainer>
-              <BigText>{vote.percentage}%</BigText>
+              <BigText>{vote.percent}%</BigText>
               <SmallText>{vote.voteContent}</SmallText>
             </TextContainer>
           </VoteOption>

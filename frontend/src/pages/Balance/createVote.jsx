@@ -89,8 +89,21 @@ const AddOptionButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 0.6vw;
+  margin-left: 2vw;
+  margin-top: 0.8vw;
   height: 1.8vw;
+`;
+
+const MinusOptionButton = styled.button`
+  border: none;
+  width: 1.7vw;
+  height: 1.7vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.9vw;
+  margin-top: 0.8vw;
 `;
 
 const OptionContainer = styled.div`
@@ -130,17 +143,6 @@ const ButtonSection = styled.div`
 const OptionButtons = styled.div`
   display: flex;
   gap: 0.5vw;
-`;
-
-const MinusOptionButton = styled.button`
-  border: none;
-  width: 1.7vw;
-  height: 1.7vw;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 0.9vw;
 `;
 
 function CreateVote() {
