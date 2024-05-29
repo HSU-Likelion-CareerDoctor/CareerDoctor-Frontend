@@ -1,6 +1,9 @@
 // Review.jsx
 import React from "react";
 import styled from "styled-components";
+import Config from "../config/config";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ReviewsContainer = styled.div`
   display: flex;
@@ -75,49 +78,57 @@ const Button = styled.button`
   }
 `;
 
-const reviews = [
-  {
-    name: "닉 네임",
-    job: "직무",
-    review:
-      "00님 소견서대로 00동아리 활동하기 위해서 면접 열심히 준비했었어요! 그리고 활동하면서 스펙많이 쌓아서 관련 업계에 1단계 합격했습니다! 진짜 커리,,",
-  },
-  {
-    name: "닉 네임",
-    job: "직무",
-    review:
-      "00님 소견서대로 00동아리 활동하기 위해서 면접 열심히 준비했었어요! 그리고 활동하면서 스펙많이 쌓아서 관련 업계에 1단계 합격했습니다! 진짜 커리,,",
-  },
-  {
-    name: "닉 네임",
-    job: "직무",
-    review:
-      "00님 소견서대로 00동아리 활동하기 위해서 면접 열심히 준비했었어요! 그리고 활동하면서 스펙많이 쌓아서 관련 업계에 1단계 합격했습니다! 진짜 커리,,",
-  },
-];
-
-function Review({ name, job, review }) {
+function Review({ item }) {
   return (
     <ReviewCard>
       <UserInfo>
         <Avatar />
-        <UserName>{name}</UserName>
+        <UserName>{item.userId}</UserName>
       </UserInfo>
-      <ReviewBox>{review}</ReviewBox>
+      <ReviewBox>{item.reviewContent}</ReviewBox>
       <ButtonContainer>
-        <Button>친절하고 자세하게 설명해주세요.</Button>
-        <Button>다른 사람에게도 추천해요.</Button>
+        <Button>{item.opinion}</Button>
+        <Button>{item.bestPoint}</Button>
       </ButtonContainer>
     </ReviewCard>
   );
 }
 
 function Reviews() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${Config.baseURL}/api/careerdoctor/reviews`,
+          {
+            method: "GET",
+            headers: Config.headers,
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+
+        if (response.status === 200) {
+          setData(data);
+        } else {
+          alert("데이터를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        alert("에러 발생");
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <ReviewsContainer>
-      {reviews.map((review, index) => (
-        <Review key={index} {...review} />
-      ))}
+      {data.length != 0 &&
+        data.data.map((item, index) => <Review key={index} item={item} />)}
     </ReviewsContainer>
   );
 }

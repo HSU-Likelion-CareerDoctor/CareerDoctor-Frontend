@@ -8,8 +8,8 @@ import Config from "../config/config";
 const CardListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 60%;
   justify-content: space-between;
+  width: 60vw;
 `;
 
 const LoadMoreButtonContainer = styled.div`

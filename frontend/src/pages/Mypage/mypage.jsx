@@ -5,6 +5,7 @@ import Prescription from "./Prescription";
 import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
 import Header from "../../components/Header";
+import axios from "axios";
 
 const PageContainer = styled.div`
   display: flex;
@@ -187,27 +188,22 @@ const MyPage = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json', 
-       
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }, [userId]); 
+    const posturl = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
+
+    axios
+      .get(posturl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    
+  }, [userId]);
 
   return (
     <>
@@ -218,7 +214,7 @@ const MyPage = () => {
         <ProfileDetails>
           <InfoBox>
             <UserNameMetaBox>
-              <UserName>닉네임닉네임닉네임</UserName>
+              <UserName>{userId}</UserName>
               <Meta>👍 스펙 양호</Meta>
             </UserNameMetaBox>
             <ButtonGroup>
