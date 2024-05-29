@@ -6,6 +6,7 @@ import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
 import Header from "../../components/Header";
 import axios from "axios";
+import Config from "../../config/config";
 
 const PageContainer = styled.div`
   display: flex;
@@ -164,9 +165,27 @@ const MyPage = () => {
   const [showBalance, setShowBalance] = useState(false);
   const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
 
+  const userId = localStorage.getItem("userId");
+
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
-    setShowPrescription(false); // Reset prescription view
+    setShowPrescription(false);
+
+    const prescriptionurl = `${Config.baseURL}/api/careerdoctor/${userId}/prescription`;
+
+    // prescriptionurl GET 요청
+    axios
+      .get(prescriptionurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("Prescription Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Prescription Error:", error);
+      });
   };
 
   const handlePrescriptionButtonClick = () => {
@@ -185,25 +204,55 @@ const MyPage = () => {
     setShowMyVote(true);
   };
 
-  const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    const posturl = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
+useEffect(() => {
+  const specurl = `${Config.baseURL}/api/careerdoctor/${userId}/view-spec`;
+  const opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+  const posturl = `${Config.baseURL}/api/careerdoctor/posts/${userId}`;
 
-    axios
-      .get(posturl, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    
-  }, [userId]);
+  // posturl로 GET 요청
+  axios
+    .get(posturl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Post Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Post Error:", error);
+    });
+
+  // opinionurl GET 요청
+  axios
+    .get(opinionurl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Opinion Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Opinion Error:", error);
+    });
+
+  // specurl로 GET 요청
+  axios
+    .get(specurl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Spec Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Spec Error:", error);
+    });
+}, [userId]);
+
 
   return (
     <>
