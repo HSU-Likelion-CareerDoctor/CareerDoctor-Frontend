@@ -76,6 +76,10 @@ function Banner(props) {
     navigate("/createVote");
   };
 
+  const moveCreateOpinion = () => {
+    navigate("/createOpinion");
+  };
+
   return (
     <>
       <Background>
@@ -86,7 +90,7 @@ function Banner(props) {
               <BigText>{props.text2}</BigText>
               <BigText>{props.text3}</BigText>
             </TitleTextContainer>
-            <VoteButton onClick={moveCreateVote}>{props.text4}</VoteButton>
+            <VoteButton onClick={props.move}>{props.text4}</VoteButton>
           </TitleContainer>
           <img src={logo1} style={{ width: "14.6vw", height: "11.6vw" }}></img>
         </BannerContainer>

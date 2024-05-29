@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import Banner from "../../components/Banner";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Reviews from "../../components/Review"; // Review 컴포넌트 가져오기
+import Banner from "../../components/Banner";
+import Reviews from "../../components/Review";
 import CardList from "../../components/CardList";
 import review from "../../img/review.png";
 import emptyCircle from "../../img/emptyCircle.png";
@@ -11,6 +11,7 @@ import right from "../../img/right.png";
 import left from "../../img/left.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Modal from "../../components/Modal";
 
 const SmallText = styled.span`
   color: #000;
@@ -20,19 +21,21 @@ const SmallText = styled.span`
   font-weight: 700;
   line-height: normal;
 `;
+
 const BigText = styled.span`
   color: #000;
   font-family: "PretendardVariable";
   font-size: 1.6vw;
   font-style: normal;
   font-weight: 700;
-  line-height: 150%; /* 60px */
+  line-height: 150%;
 `;
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Section = styled.div`
   width: 60%;
 `;
@@ -68,12 +71,14 @@ const SpecButton = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 
 const Container2 = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Container3 = styled.div`
   display: flex;
   justify-content: space-between;
@@ -81,6 +86,7 @@ const Container3 = styled.div`
   margin-top: 5.2vw;
   width: 60%;
 `;
+
 const StyledP = styled.p`
   color: #000;
   font-family: "Pretendard Variable";
@@ -98,6 +104,7 @@ const Text = styled.span`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 
 const NextContainer = styled.div`
@@ -110,6 +117,8 @@ const NextContainer = styled.div`
 
 function Main() {
   const [count, setCount] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const showPrevious = () => {
     setCount((prevCount) => (prevCount - 1 + 4) % 4);
@@ -131,6 +140,15 @@ function Main() {
     });
   };
 
+  const handleSpecButtonClick = () => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      navigate("/spec");
+    } else {
+      setShowModal(true);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -147,7 +165,9 @@ function Main() {
               <SmallText>취뽀 선배님들에게 피드백을 들어보세요.</SmallText>
               <BigText>스펙만렙과 취뽀 선배에게 받는 스펙소견서</BigText>
             </TextContainer>
-            <SpecButton>지금 스펙소견서 받기</SpecButton>
+            <SpecButton onClick={handleSpecButtonClick}>
+              지금 스펙소견서 받기
+            </SpecButton>
           </TitleContainer>
           <span
             style={{
@@ -158,7 +178,7 @@ function Main() {
           >
             후기 인증
           </span>
-          <Reviews /> {/* Review 컴포넌트 추가 */}
+          <Reviews />
           <NextContainer>
             <img
               src={left}
@@ -187,17 +207,17 @@ function Main() {
           />
         </Section>
       </Container>
-
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Container3>
           <StyledP>취준생들의 스펙 고민을 듣고 투표해주세요!</StyledP>
-          <Text> 더보기</Text>
+          <Text onClick={() => navigate("/balanceMain")}> 더보기</Text>
         </Container3>
       </div>
       <Container2>
         <CardList initialNumCards={4} />
       </Container2>
       <Footer />
+      {showModal && <Modal onClose={() => setShowModal(false)} />}
     </>
   );
 }
