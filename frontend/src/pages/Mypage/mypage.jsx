@@ -163,13 +163,13 @@ const MyPage = () => {
   const [showPrescription, setShowPrescription] = useState(false);
   const [showOpinion, setShowOpinion] = useState(false);
   const [showBalance, setShowBalance] = useState(false);
-  const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
 
   const userId = localStorage.getItem("userId");
 
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
     setShowPrescription(false);
+    setShowBalance(false);
 
     const prescriptionurl = `${Config.baseURL}/api/careerdoctor/${userId}/prescription`;
 
@@ -190,18 +190,20 @@ const MyPage = () => {
 
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
+    setShowOpinion(false);
+      setShowDiagnosis(false);
   };
 
   const handleOpinionButtonClick = () => {
+         setShowDiagnosis(false);
     setShowOpinion(true);
+      setShowPrescription(false);
   };
 
   const handleBalanceButtonClick = () => {
+      setShowDiagnosis(false);
     setShowBalance(true);
-  };
-
-  const handleMyVoteClick = () => {
-    setShowMyVote(true);
+        setShowOpinion(false);
   };
 
 
