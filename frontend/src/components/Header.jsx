@@ -4,43 +4,43 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Logo = styled.div`
-	display: inline-flex;
-	height: 4.5vh;
-	padding: 1vw 0vw;
-	align-items: center;
-	gap: 0.15vw;
-	flex-shrink: 0;
+  display: inline-flex;
+  height: 4.5vw;
+  padding: 1vw 0vw;
+  align-items: center;
+  gap: 0.15vw;
+  flex-shrink: 0;
 `;
 
 const Login = styled.div`
-	display: flex;
+  display: flex;
 `;
 
 const Container1 = styled.div`
-	display: flex;
-	justify-content: center;
-	height: 4.5vh;
+  display: flex;
+  justify-content: center;
+  height: 4.5vw;
 `;
 
 const Container = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
 `;
 
 const Navigation = styled.div`
-	display: flex;
-	gap: 2vw;
+  display: flex;
+  gap: 2vw;
 `;
 
 const Text = styled.div`
-	color: #000;
-	font-family: "Pretendard Variable";
-	font-size: 0.8vw;
-	font-style: normal;
-	font-weight: 600;
-	line-height: normal;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 0.8vw;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 function Header(props) {
