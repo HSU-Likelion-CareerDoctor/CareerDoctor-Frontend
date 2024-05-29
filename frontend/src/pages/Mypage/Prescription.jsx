@@ -11,10 +11,9 @@ const PrescriptionContainerWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90%;
+  width: 60%;
   max-width: 1200px;
   background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-top: 3vw;
   padding: 20px;
