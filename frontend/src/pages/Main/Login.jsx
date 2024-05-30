@@ -182,6 +182,10 @@ const Login = () => {
     }
   };
 
+  const handleSignup = () => {
+    navigate("/signup"); // 회원가입 버튼 클릭 시 /signup 페이지로 이동
+  };
+
   return (
     <Container>
       <Logo src={LogoIcon} alt="LogoIcon" />
@@ -213,7 +217,7 @@ const Login = () => {
           <LoginButton type="button" onClick={handleLogin}>
             로그인
           </LoginButton>
-          <SignupButton type="submit" active={isLoginActive}>
+          <SignupButton type="submit" onClick={handleSignup} active={isLoginActive}>
             회원가입
           </SignupButton>
         </Button>

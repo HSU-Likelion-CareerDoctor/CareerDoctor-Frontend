@@ -195,6 +195,26 @@ const MyPage = () => {
   };
 
   const handleOpinionButtonClick = () => {
+
+
+//
+const Opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+
+// prescriptionurl GET 요청
+axios
+  .get(Opinionurl, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    console.log("Opinion Data:", response.data);
+  })
+  .catch((error) => {
+    console.error("Opinion Error:", error);
+  });
+
+
     setShowDiagnosis(false);
     setShowOpinion(true);
     setShowPrescription(false);

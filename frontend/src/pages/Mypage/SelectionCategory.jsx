@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DiagnosisContent from "./DiagnosisContent";
 import PrescriptionContent from "./Prescription";
+import axios from "axios";
+import Config from "../../config/config";
 
 const SelectionCategoryContainer = styled.div`
   display: flex;
@@ -33,7 +35,26 @@ const SelectionCategory = () => {
   const [showDiagnosis, setShowDiagnosis] = useState(false);
   const [showPrescription, setShowPrescription] = useState(false);
 
+  const userId = localStorage.getItem("userId");
+  
   const handleDiagnosisButtonClick = () => {
+
+ const diagnosisurl = `${Config.baseURL}/api/careerdoctor/view-spec/${userId}`;
+
+    // diagnosisurl GET 요청
+    axios
+      .get(diagnosisurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("diagnosis Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("diagnosis Error:", error);
+      });
+
     setShowDiagnosis(true);
     setShowPrescription(false);
   };
