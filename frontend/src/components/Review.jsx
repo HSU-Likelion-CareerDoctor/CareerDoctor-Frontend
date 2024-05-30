@@ -13,6 +13,9 @@ const ReviewsContainer = styled.div`
 `;
 
 const ReviewCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #ccc;
   border-radius: 0.5vw;
   padding: 1vw;
@@ -44,8 +47,8 @@ const UserName = styled.div`
   line-height: normal;
 `;
 
-const ReviewBox = styled.p`
-  margin: 0.5vw 0;
+const ReviewBox = styled.div`
+  margin: 0.8vw 0;
   color: #000;
   font-family: "Pretendard Variable";
   font-size: 0.8vw;
@@ -57,10 +60,13 @@ const ReviewBox = styled.p`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: end;
   gap: 0.5vw;
 `;
 
 const Button = styled.button`
+  display: flex;
+  width: fit-content;
   padding: 0.5vw;
   border: 0.05vw solid #ccc;
   border-radius: 0.25vw;
@@ -81,11 +87,13 @@ const Button = styled.button`
 function Review({ item }) {
   return (
     <ReviewCard>
-      <UserInfo>
-        <Avatar />
-        <UserName>{item.userId}</UserName>
-      </UserInfo>
-      <ReviewBox>{item.reviewContent}</ReviewBox>
+      <div>
+        <UserInfo>
+          <Avatar />
+          <UserName>{item.userId}</UserName>
+        </UserInfo>
+        <ReviewBox>{item.reviewContent}</ReviewBox>
+      </div>
       <ButtonContainer>
         <Button>{item.opinion}</Button>
         <Button>{item.bestPoint}</Button>
@@ -94,8 +102,28 @@ function Review({ item }) {
   );
 }
 
-function Reviews() {
+function Reviews({ setLoadMoreHandler, setLoadBeforeHandler }) {
+  const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
+
+  const reviewsPerPage = 4;
+
+  const handleLoadMore = () => {
+    if ((currentPage + 1) * reviewsPerPage < data.length) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handleLoadBefore = () => {
+    if (currentPage > 0) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  useEffect(() => {
+    setLoadMoreHandler(() => handleLoadMore);
+    setLoadBeforeHandler(() => handleLoadBefore);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,7 +139,7 @@ function Reviews() {
         const data = await response.json();
         console.log(data);
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           setData(data);
         } else {
           alert("데이터를 불러오는데 실패했습니다.");
@@ -125,10 +153,15 @@ function Reviews() {
     fetchData();
   }, []);
 
+  const startIndex = currentPage * reviewsPerPage;
+  const currentReviews = startIndex + reviewsPerPage;
+
   return (
     <ReviewsContainer>
       {data.length != 0 &&
-        data.data.map((item, index) => <Review key={index} item={item} />)}
+        data.data
+          .slice(0, currentReviews)
+          .map((item, index) => <Review key={index} item={item} />)}
     </ReviewsContainer>
   );
 }
