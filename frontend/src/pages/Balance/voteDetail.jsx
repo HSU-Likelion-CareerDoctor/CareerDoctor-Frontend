@@ -5,6 +5,9 @@ import save from "../../img/Component3.png";
 import comment1 from "../../img/comment.png";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Config from "../../config/config";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // Styled-components 정의
 const Container = styled.div`
@@ -233,7 +236,7 @@ const Count = styled.span`
   margin-top: 0.2vw;
 `;
 
-const Submit = styled.span`
+const Submit = styled.div`
   color: ${({ isClickable }) => (isClickable ? "#fff" : "#aeaeae")};
   text-align: center;
   font-family: "Pretendard Variable";
@@ -266,14 +269,63 @@ const ButtonSection = styled.div`
 const PostHeader = ({ isAuthor }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const [data, setData] = useState([]);
+  const [createdAt, setCreatedAt] = useState("2024-05-30");
+  const { postId } = useParams(); // URL에서 postId를 가져옵니다.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${Config.baseURL}/api/careerdoctor/posts/${postId}`,
+          {
+            method: "GET",
+            headers: Config.headers,
+          }
+        );
+
+        const data = await response.json();
+        console.log("/////////////////////");
+        console.log(data);
+
+        if (response.status === 201) {
+          setData(data);
+          setCreatedAt(data.data.createdAt);
+        } else {
+          alert("데이터를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        alert("에러 발생");
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  function calculateTimeAgo(inputTime) {
+    const now = new Date();
+    const past = new Date(inputTime);
+
+    const diffInMs = now - past;
+
+    if (diffInMs < 1000 * 60 * 60 * 24) {
+      const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+      return `${diffInHours}시간 전`;
+    } else {
+      const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+      return `${diffInDays}일 전`;
+    }
+  }
+
+  const timeAgo = calculateTimeAgo(createdAt);
 
   return (
     <HeaderBox>
       <UserInfo>
         <Avatar />
         <InfoBox>
-          <UserName>작성자 닉네임</UserName>
-          <Meta>👍 스펙 양호</Meta> <Time>1분 전</Time>
+          <UserName>{data.length !== 0 && data.data.userId}</UserName>
+          <Meta>👍 스펙 양호</Meta> <Time>{timeAgo}</Time>
         </InfoBox>
       </UserInfo>
       <MenuIcon onClick={toggleDropdown}>
@@ -293,33 +345,87 @@ const PostHeader = ({ isAuthor }) => {
 const CommentComponent = ({ isAuthor }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const [commentData, setCommentData] = useState([]);
+  const { postId } = useParams(); // URL에서 postId를 가져옵니다.
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${Config.baseURL}/api/careerdoctor/${postId}/comments`,
+  //         {
+  //           method: "GET",
+  //           headers: Config.headers,
+  //         }
+  //       );
+
+  //       const data = await response.json();
+  //       console.log("/////////////////////");
+  //       console.log(data);
+
+  //       if (response.status === 200) {
+  //         setCommentData(commentData);
+  //       } else {
+  //         alert("데이터를 불러오는데 실패했습니다.");
+  //       }
+  //     } catch (error) {
+  //       alert("에러 발생");
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   return (
-    <Comment>
-      <CommentHeader>
-        <UserInfo>
-          <Avatar />
-          <InfoBox>
-            <UserName> 작성자 닉네임</UserName>
-            <Meta>👍 스펙 양호 </Meta> <Time>1분 전</Time>
-          </InfoBox>
-        </UserInfo>
-        <MenuIcon onClick={toggleDropdown}>
-          ⋮
-          {isDropdownOpen && (
-            <DropdownMenu>
-              <DropdownItem>수정</DropdownItem>
-              <DropdownItem>삭제</DropdownItem>
-              {!isAuthor && <DropdownItem>신고</DropdownItem>}
-            </DropdownMenu>
-          )}
-        </MenuIcon>
-      </CommentHeader>
-      <CommentContent>
-        댓글 댓글
-        <br /> 내용 댓글 내용
-      </CommentContent>
-    </Comment>
+    <>
+      <Comment>
+        <CommentHeader>
+          <UserInfo>
+            <Avatar />
+            <InfoBox>
+              <UserName>박태범</UserName>
+              <Meta>👍 스펙 양호 </Meta> <Time>3시간 전</Time>
+            </InfoBox>
+          </UserInfo>
+          <MenuIcon onClick={toggleDropdown}>
+            ⋮
+            {isDropdownOpen && (
+              <DropdownMenu>
+                <DropdownItem>수정</DropdownItem>
+                <DropdownItem>삭제</DropdownItem>
+                {!isAuthor && <DropdownItem>신고</DropdownItem>}
+              </DropdownMenu>
+            )}
+          </MenuIcon>
+        </CommentHeader>
+        <CommentContent>저는 혼자하는게 좋을거 같아요.</CommentContent>
+      </Comment>
+      <Comment>
+        <CommentHeader>
+          <UserInfo>
+            <Avatar />
+            <InfoBox>
+              <UserName>한지운</UserName>
+              <Meta>👍 스펙 양호 </Meta> <Time>1시간 전</Time>
+            </InfoBox>
+          </UserInfo>
+          <MenuIcon onClick={toggleDropdown}>
+            ⋮
+            {isDropdownOpen && (
+              <DropdownMenu>
+                <DropdownItem>수정</DropdownItem>
+                <DropdownItem>삭제</DropdownItem>
+                {!isAuthor && <DropdownItem>신고</DropdownItem>}
+              </DropdownMenu>
+            )}
+          </MenuIcon>
+        </CommentHeader>
+        <CommentContent>
+          저도 학원 다녀봤는데 혼자 하는게 좋은거 같아요.
+        </CommentContent>
+      </Comment>
+    </>
   );
 };
 
@@ -327,10 +433,72 @@ const VoteDetail = () => {
   const [isAuthor, setIsAuthor] = useState(true); // 작성자 여부 (예시로 true로 설정)
   const [comment, setComment] = useState("");
   const [isClickable, setIsClickable] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const handleComment = (value) => {
     setComment(value);
     setIsClickable(value.trim().length > 0);
+  };
+
+  const [data, setData] = useState([]);
+  const { postId } = useParams(); // URL에서 postId를 가져옵니다.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${Config.baseURL}/api/careerdoctor/posts/${postId}`,
+          {
+            method: "GET",
+            headers: Config.headers,
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+
+        if (response.status === 201) {
+          setData(data);
+        } else {
+          alert("데이터를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        alert("에러 발생");
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleCreate = async () => {
+    try {
+      const response = await fetch(
+        `${Config.baseURL}/api/careerdoctor/comments`,
+        {
+          method: "POST",
+          headers: Config.headers,
+          body: JSON.stringify({
+            userId: userId,
+            postId: postId,
+            content: comment,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.status === 200) {
+        alert("게시글 댓글 등록 성공.");
+        const userId = localStorage.getItem("userId");
+        setUserId(userId);
+      } else {
+        alert("댓글 실패");
+      }
+    } catch (error) {
+      alert("에러 발생");
+      console.log(error);
+    }
   };
 
   return (
@@ -339,20 +507,11 @@ const VoteDetail = () => {
       <Container>
         <Content>
           <PostHeader isAuthor={isAuthor} />
-          <Title>
-            A 공모전이랑 B 동아리랑 준비 기간이 겹쳐서 하나만 해야할 것 같은데
-            어떤 것을 하는게 좋을까요?
-          </Title>
-          <Context>
-            현재 동아리는 1회 공모전은 경험이 없어요. 어떤걸 선택하는것이
-            좋을까요? <br />
-            취준생 선배님들 도와주세요! 현재 동아리는 1회 공모전은 경험이
-            없어요. 어떤 걸 선택하는 것이 좋을까요?
-            <br /> 취준생 선배님들 도와주세요!
-          </Context>
+          <Title>{data.length !== 0 && data.data.postTitle}</Title>
+          <Context>{data.length !== 0 && data.data.postContent}</Context>
           <PollOptions>
-            <OptionButton>A 공모전</OptionButton>
-            <OptionButton>B 동아리</OptionButton>
+            <OptionButton>학원 다닌다</OptionButton>
+            <OptionButton>혼자 한다</OptionButton>
           </PollOptions>
           <Actions>
             <ActionButton>
@@ -377,10 +536,9 @@ const VoteDetail = () => {
             />
             <ButtonSection>
               <CommentButton isClickable={isClickable}>
-                <Submit isClickable={isClickable}>등록</Submit>
+                <Submit onClick={handleCreate}>등록</Submit>
               </CommentButton>
             </ButtonSection>
-            <CommentComponent isAuthor={isAuthor} />
             <CommentComponent isAuthor={isAuthor} />
           </CommentsSection>
         </Content>
