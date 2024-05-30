@@ -1,6 +1,8 @@
-// SelectionCategory.jsx 선택 스펙진단서vs스펙처방전
-import React from "react";
+// SelectionCategory.jsx
+import React, { useState } from "react";
 import styled from "styled-components";
+import DiagnosisContent from "./DiagnosisContent";
+import PrescriptionContent from "./Prescription";
 
 const SelectionCategoryContainer = styled.div`
   display: flex;
@@ -27,12 +29,29 @@ const Category = styled.button`
   }
 `;
 
-const SelectionCategory = ({ handlePrescriptionButtonClick }) => {
+const SelectionCategory = () => {
+  const [showDiagnosis, setShowDiagnosis] = useState(false);
+  const [showPrescription, setShowPrescription] = useState(false);
+
+  const handleDiagnosisButtonClick = () => {
+    setShowDiagnosis(true);
+    setShowPrescription(false);
+  };
+
+  const handlePrescriptionButtonClick = () => {
+    setShowDiagnosis(false);
+    setShowPrescription(true);
+  };
+
   return (
-    <SelectionCategoryContainer>
-      <Category>스펙진단서</Category>
-      <Category onClick={handlePrescriptionButtonClick}>스펙처방전</Category>
-    </SelectionCategoryContainer>
+    <>
+      <SelectionCategoryContainer>
+        <Category onClick={handleDiagnosisButtonClick}>스펙진단서</Category>
+        <Category onClick={handlePrescriptionButtonClick}>스펙처방전</Category>
+      </SelectionCategoryContainer>
+      {showDiagnosis && <DiagnosisContent />}
+      {showPrescription && <PrescriptionContent />}
+    </>
   );
 };
 

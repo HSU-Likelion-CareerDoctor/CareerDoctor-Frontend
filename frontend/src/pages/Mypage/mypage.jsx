@@ -191,19 +191,19 @@ const MyPage = () => {
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
     setShowOpinion(false);
-      setShowDiagnosis(false);
+    setShowDiagnosis(false);
   };
 
   const handleOpinionButtonClick = () => {
-         setShowDiagnosis(false);
+    setShowDiagnosis(false);
     setShowOpinion(true);
-      setShowPrescription(false);
+    setShowPrescription(false);
   };
 
   const handleBalanceButtonClick = () => {
-      setShowDiagnosis(false);
+    setShowDiagnosis(false);
     setShowBalance(true);
-        setShowOpinion(false);
+    setShowOpinion(false);
   };
 
 
