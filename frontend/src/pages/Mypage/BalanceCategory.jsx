@@ -249,7 +249,6 @@ const BalanceCategory = () => {
         <Category onClick={handleMyVoteClick}>내가 올린 투표</Category>
         <Category onClick={handleMyParticipationVoteClick}>내가 참여한 투표</Category>
         <Category onClick={handleLikeCategoryClick}>좋아요</Category>
-        <Category>스크랩</Category>
       </SelectionCategoryContainer>
 
       {showMyVotes && (
