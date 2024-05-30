@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import likeIcon from "../../img/like.png";
-import saveIcon from "../../img/save.png";
 import redHeart from "../../img/redheart.png";
+import saveIcon from "../../img/save.png";
 
 const MyLikeContainer = styled.div`
   display: grid;
@@ -19,7 +18,7 @@ const VoteBox = styled.div`
 `;
 
 const InfoBox = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-between;
 `;
 
@@ -71,7 +70,7 @@ const LikeContainer = styled.div`
 `;
 
 const LikeButton = styled.button`
-  background: url(${props => props.liked ? redHeart : likeIcon}) no-repeat center center;
+  background: url(${redHeart}) no-repeat center center;
   background-size: contain;
   width: 1vw;
   height: 1vw;
@@ -190,7 +189,7 @@ const Like = ({ likeCount, handleLikeClick, saveCount, handleSaveClick }) => {
             <Title>제목입니다.</Title>
             <LikeSave>
               <LikeContainer>
-                <LikeButton onClick={handleLike} liked={liked} />
+                <LikeButton onClick={handleLike} />
                 <CountText>{likeCount}</CountText>
               </LikeContainer>
               <SaveContainer>
