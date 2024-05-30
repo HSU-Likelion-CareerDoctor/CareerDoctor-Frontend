@@ -6,6 +6,7 @@ import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
 import Header from "../../components/Header";
 import axios from "axios";
+import Config from "../../config/config";
 
 const PageContainer = styled.div`
   display: flex;
@@ -162,48 +163,118 @@ const MyPage = () => {
   const [showPrescription, setShowPrescription] = useState(false);
   const [showOpinion, setShowOpinion] = useState(false);
   const [showBalance, setShowBalance] = useState(false);
-  const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
-
-  const handleSelectionButtonClick = () => {
-    setShowDiagnosis(true);
-    setShowPrescription(false); // Reset prescription view
-  };
-
-  const handlePrescriptionButtonClick = () => {
-    setShowPrescription(true);
-  };
-
-  const handleOpinionButtonClick = () => {
-    setShowOpinion(true);
-  };
-
-  const handleBalanceButtonClick = () => {
-    setShowBalance(true);
-  };
-
-  const handleMyVoteClick = () => {
-    setShowMyVote(true);
-  };
 
   const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    const posturl = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
+  const handleSelectionButtonClick = () => {
+    setShowDiagnosis(true);
+    setShowPrescription(false);
+    setShowBalance(false);
 
+    const prescriptionurl = `${Config.baseURL}/api/careerdoctor/${userId}/prescription`;
+
+    // prescriptionurl GET 요청
     axios
-      .get(posturl, {
+      .get(prescriptionurl, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log("Prescription Data:", response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Prescription Error:", error);
       });
-    
-  }, [userId]);
+  };
+
+  const handlePrescriptionButtonClick = () => {
+    setShowPrescription(true);
+    setShowOpinion(false);
+    setShowDiagnosis(false);
+  };
+
+  const handleOpinionButtonClick = () => {
+
+
+//
+const Opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+
+// prescriptionurl GET 요청
+axios
+  .get(Opinionurl, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    console.log("Opinion Data:", response.data);
+  })
+  .catch((error) => {
+    console.error("Opinion Error:", error);
+  });
+
+
+    setShowDiagnosis(false);
+    setShowOpinion(true);
+    setShowPrescription(false);
+  };
+
+  const handleBalanceButtonClick = () => {
+    setShowDiagnosis(false);
+    setShowBalance(true);
+    setShowOpinion(false);
+  };
+
+
+useEffect(() => {
+  const specurl = `${Config.baseURL}/api/careerdoctor/${userId}/view-spec`;
+  const opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+  const posturl = `${Config.baseURL}/api/careerdoctor/posts/${userId}`;
+
+  // posturl로 GET 요청
+  axios
+    .get(posturl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Post Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Post Error:", error);
+    });
+
+  // opinionurl GET 요청
+  axios
+    .get(opinionurl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Opinion Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Opinion Error:", error);
+    });
+
+  // specurl로 GET 요청
+  axios
+    .get(specurl, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log("Spec Data:", response.data);
+    })
+    .catch((error) => {
+      console.error("Spec Error:", error);
+    });
+}, [userId]);
+
 
   return (
     <>

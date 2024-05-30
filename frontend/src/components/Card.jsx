@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import heart from "../img/Component4.png";
 import save from "../img/Component3.png";
+import Config from "../config/config";
+import { useNavigate } from "react-router-dom";
 
 const CardContainer = styled.div`
   width: 49%;
@@ -78,6 +80,7 @@ const ActionRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.6vw;
+  cursor: pointer;
 `;
 
 const ActionRow2 = styled.div`
@@ -170,16 +173,44 @@ function calculateTimeAgo(inputTime) {
 function Card({ item }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const timeAgo = calculateTimeAgo(item.createdAt);
+  const navigate = useNavigate();
   const initialCount = item.vote.reduce(
     (total, vote) => total + vote.voteCount,
     0
   );
+
   const [count, setCount] = useState(initialCount);
 
   const handleVoteClick = (index) => {
     setSelectedOption(index);
-    setCount(count + 1);
-    console.log(count);
+  };
+
+  const moveDetail = () => {
+    navigate(`/voteDetail/${item.postId}`);
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${Config.baseURL}/api/careerdoctor/plusVoteCount/${item.voteId}`,
+        {
+          method: "GET",
+          headers: Config.headers,
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.status === 200) {
+        setCount(count + 1);
+      } else {
+        alert("데이터를 불러오는데 실패했습니다.");
+      }
+    } catch (error) {
+      alert("에러 발생");
+      console.log(error);
+    }
   };
 
   return (
@@ -191,7 +222,7 @@ function Card({ item }) {
         </Profile>
         <TimeAgo>{timeAgo}</TimeAgo>
       </Header>
-      <ActionRow>
+      <ActionRow onClick={moveDetail}>
         <Title>{item.postTitle}</Title>
         <ActionRow2>
           <LikesAndComments>

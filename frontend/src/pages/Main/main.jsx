@@ -119,12 +119,16 @@ function Main() {
   const [count, setCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const [loadMoreHandler, setLoadMoreHandler] = useState(() => () => {});
+  const [loadBeforeHandler, setLoadBeforeHandler] = useState(() => () => {});
 
   const showPrevious = () => {
+    loadBeforeHandler();
     setCount((prevCount) => (prevCount - 1 + 4) % 4);
   };
 
   const showNext = () => {
+    loadMoreHandler();
     setCount((prevCount) => (prevCount + 1) % 4);
   };
 
@@ -178,7 +182,10 @@ function Main() {
           >
             후기 인증
           </span>
-          <Reviews />
+          <Reviews
+            setLoadMoreHandler={setLoadMoreHandler}
+            setLoadBeforeHandler={setLoadBeforeHandler}
+          />
           <NextContainer>
             <img
               src={left}

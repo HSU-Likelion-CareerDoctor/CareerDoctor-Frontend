@@ -2,6 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Config from "../../config/config";
 
 const OpinionContainer = styled.div`
   width: 60%;
@@ -125,6 +127,23 @@ const AddBox = styled.button`
 `;
 
 const SpecOpinion = () => {
+
+    const handleFeedbackClick = (reportId) => {
+      const reviewUrl = `${Config.baseURL}/api/careerdoctor/write-review/${reportId}`;
+      axios
+        .get(reviewUrl)
+        .then((response) => {
+          console.log(response.data);
+          // 피드백 작성 페이지로 이동
+          window.location.href = "/feedback";
+        })
+        .catch((error) => {
+          console.error("Review Fetch Error:", error);
+           window.location.href = "/feedback";//나중에 삭제할것
+        });
+  };
+  
+
   return (
     <>
       <OpinionContainer>
@@ -146,117 +165,7 @@ const SpecOpinion = () => {
             <RecommendSpecBox>자격증</RecommendSpecBox>
             <RecommendSpecBox>자격증</RecommendSpecBox>
           </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
-            피드백 실천후기 작성하기
-          </FeedbackButton>
-        </OpinionBox>
-        <OpinionBox>
-          <InfoBox>
-            <UserNameMetaBox>
-              <ProfileImage></ProfileImage>
-              <UserName>닉네임</UserName>
-              <Meta>🔥스펙 우수</Meta>
-            </UserNameMetaBox>
-            <Date>0000.00.00</Date>
-          </InfoBox>
-          <Content>
-            소견서 내용<br></br>소견서 내용<br></br>소견서 내용
-          </Content>
-          <RecommendSpec>추천 스펙</RecommendSpec>
-          <RecommendSpecBoxContainer>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-          </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
-            피드백 실천후기 작성하기
-          </FeedbackButton>
-        </OpinionBox>
-        <OpinionBox>
-          <InfoBox>
-            <UserNameMetaBox>
-              <ProfileImage></ProfileImage>
-              <UserName>닉네임</UserName>
-              <Meta>🔥스펙 우수</Meta>
-            </UserNameMetaBox>
-            <Date>0000.00.00</Date>
-          </InfoBox>
-          <Content>
-            소견서 내용<br></br>소견서 내용<br></br>소견서 내용
-          </Content>
-          <RecommendSpec>추천 스펙</RecommendSpec>
-          <RecommendSpecBoxContainer>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-          </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
-            피드백 실천후기 작성하기
-          </FeedbackButton>
-        </OpinionBox>
-        <OpinionBox>
-          <InfoBox>
-            <UserNameMetaBox>
-              <ProfileImage></ProfileImage>
-              <UserName>닉네임</UserName>
-              <Meta>🔥스펙 우수</Meta>
-            </UserNameMetaBox>
-            <Date>0000.00.00</Date>
-          </InfoBox>
-          <Content>
-            소견서 내용<br></br>소견서 내용<br></br>소견서 내용
-          </Content>
-          <RecommendSpec>추천 스펙</RecommendSpec>
-          <RecommendSpecBoxContainer>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-          </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
-            피드백 실천후기 작성하기
-          </FeedbackButton>
-        </OpinionBox>
-        <OpinionBox>
-          <InfoBox>
-            <UserNameMetaBox>
-              <ProfileImage></ProfileImage>
-              <UserName>닉네임</UserName>
-              <Meta>🔥스펙 우수</Meta>
-            </UserNameMetaBox>
-            <Date>0000.00.00</Date>
-          </InfoBox>
-          <Content>
-            소견서 내용<br></br>소견서 내용<br></br>소견서 내용
-          </Content>
-          <RecommendSpec>추천 스펙</RecommendSpec>
-          <RecommendSpecBoxContainer>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-          </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
-            피드백 실천후기 작성하기
-          </FeedbackButton>
-        </OpinionBox>
-        <OpinionBox>
-          <InfoBox>
-            <UserNameMetaBox>
-              <ProfileImage></ProfileImage>
-              <UserName>닉네임</UserName>
-              <Meta>🔥스펙 우수</Meta>
-            </UserNameMetaBox>
-            <Date>0000.00.00</Date>
-          </InfoBox>
-          <Content>
-            소견서 내용<br></br>소견서 내용<br></br>소견서 내용
-          </Content>
-          <RecommendSpec>추천 스펙</RecommendSpec>
-          <RecommendSpecBoxContainer>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-            <RecommendSpecBox>자격증</RecommendSpecBox>
-          </RecommendSpecBoxContainer>
-          <FeedbackButton to="/feedback">
+          <FeedbackButton onClick={() => handleFeedbackClick("reportId")}>
             피드백 실천후기 작성하기
           </FeedbackButton>
         </OpinionBox>
