@@ -63,7 +63,6 @@ function Header(props) {
     navigate("/signup");
   };
   const moveMyPage = () => {
-    
     navigate("/mypage");
   };
 
@@ -80,8 +79,8 @@ function Header(props) {
         <Navigation>
           <Text>스펙 진단받기</Text>
           <Text>스펙소견서</Text>
-          <Text>취준 밸런스</Text>
-          <Text onClick={moveBalance}>실시간 지원자 스펙</Text>
+          <Text onClick={moveBalance}>취준 밸런스</Text>
+          <Text>실시간 지원자 스펙</Text>
           <Login>
             {isLoggedin ? (
               <Text onClick={moveMyPage}>마이페이지</Text>
