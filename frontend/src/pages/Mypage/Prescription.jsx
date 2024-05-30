@@ -84,9 +84,12 @@ const Text = styled.div`
 
 const Prescription = () => {
 
+
+  const userId = localStorage.getItem("userId");
+
   return (
     <PrescriptionContainerWrapper>
-      <PrescriptionHeader>00님에게 처방한 스펙입니다.</PrescriptionHeader>
+      <PrescriptionHeader>{userId}님에게 처방한 스펙입니다.</PrescriptionHeader>
       <PrescriptionBoxContainer>
         <ArrowButton>{"<"}</ArrowButton>
         <PrescriptionBox>

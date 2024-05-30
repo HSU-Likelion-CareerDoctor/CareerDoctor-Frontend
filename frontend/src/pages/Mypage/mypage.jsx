@@ -191,19 +191,39 @@ const MyPage = () => {
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
     setShowOpinion(false);
-      setShowDiagnosis(false);
+    setShowDiagnosis(false);
   };
 
   const handleOpinionButtonClick = () => {
-         setShowDiagnosis(false);
+
+
+//
+const Opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+
+// prescriptionurl GET 요청
+axios
+  .get(Opinionurl, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    console.log("Opinion Data:", response.data);
+  })
+  .catch((error) => {
+    console.error("Opinion Error:", error);
+  });
+
+
+    setShowDiagnosis(false);
     setShowOpinion(true);
-      setShowPrescription(false);
+    setShowPrescription(false);
   };
 
   const handleBalanceButtonClick = () => {
-      setShowDiagnosis(false);
+    setShowDiagnosis(false);
     setShowBalance(true);
-        setShowOpinion(false);
+    setShowOpinion(false);
   };
 
 
