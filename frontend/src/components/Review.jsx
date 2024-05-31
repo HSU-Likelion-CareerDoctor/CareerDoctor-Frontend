@@ -154,6 +154,7 @@ function Reviews({ setLoadMoreHandler, setLoadBeforeHandler }) {
   }, []);
 
   const startIndex = currentPage * reviewsPerPage;
+
   const currentReviews = startIndex + reviewsPerPage;
 
   return (
