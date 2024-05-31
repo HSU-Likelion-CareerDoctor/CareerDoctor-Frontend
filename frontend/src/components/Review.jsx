@@ -66,8 +66,8 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   display: flex;
-  width: fit-content;
   padding: 0.5vw;
+  justify-content: center;
   border: 0.05vw solid #ccc;
   border-radius: 0.25vw;
   background-color: #fff;
