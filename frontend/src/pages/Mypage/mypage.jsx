@@ -6,6 +6,7 @@ import Opinion from "./SpecOpinion";
 import Balance from "./BalanceCategory";
 import Header from "../../components/Header";
 import axios from "axios";
+import Config from "../../config/config";
 
 const PageContainer = styled.div`
   display: flex;
@@ -90,7 +91,8 @@ const Button = styled.button`
   border: none;
   border-radius: 0.5vw;
   cursor: pointer;
-  color: #aeaeae;
+  color: ${(props) => (props.selected ? "white" : "#aeaeae")};
+  background-color: ${(props) => (props.selected ? "#007bff" : "transparent")};
 
   &:hover {
     background-color: #007bff;
@@ -136,16 +138,11 @@ const SelectionButton = styled.button`
   color: black;
   transition: color 0.3s;
 
-  // &:hover {
-  //   color: #ffffff;
-  //   background-color: #007bff;
-  // }
-
   &::after {
     content: "";
     position: absolute;
     left: 0vw;
-    bottom: -0.2vw; /* 버튼 하단에서 약간의 간격 */
+    bottom: -0.2vw;
     width: 100%;
     height: 0.2vw;
     background-color: transparent;
@@ -162,33 +159,87 @@ const MyPage = () => {
   const [showPrescription, setShowPrescription] = useState(false);
   const [showOpinion, setShowOpinion] = useState(false);
   const [showBalance, setShowBalance] = useState(false);
-  const [showMyVote, setShowMyVote] = useState(false); // showMyVote 상태 추가
+  const [isSpecPublic, setIsSpecPublic] = useState(true); // 스펙 공개 상태 초기값 true로 설정
+
+  const userId = localStorage.getItem("userId");
 
   const handleSelectionButtonClick = () => {
     setShowDiagnosis(true);
-    setShowPrescription(false); // Reset prescription view
+    setShowPrescription(false);
+    setShowBalance(false);
+
+    const prescriptionurl = `${Config.baseURL}/api/careerdoctor/${userId}/prescription`;
+
+    axios
+      .get(prescriptionurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("Prescription Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Prescription Error:", error);
+      });
   };
 
   const handlePrescriptionButtonClick = () => {
     setShowPrescription(true);
+    setShowOpinion(false);
+    setShowDiagnosis(false);
   };
 
   const handleOpinionButtonClick = () => {
+    const opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+
+    axios
+      .get(opinionurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("Opinion Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Opinion Error:", error);
+      });
+
+    setShowDiagnosis(false);
     setShowOpinion(true);
+    setShowPrescription(false);
   };
 
   const handleBalanceButtonClick = () => {
+    setShowDiagnosis(false);
     setShowBalance(true);
+    setShowOpinion(false);
   };
 
-  const handleMyVoteClick = () => {
-    setShowMyVote(true);
+  const toggleSpecVisibility = (isPublic) => {
+    setIsSpecPublic(isPublic);
   };
 
-  const userId = localStorage.getItem("userId");
+  const handleLogout = () => {
+    axios.post(`${Config.baseURL}/api/logout`, null, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(() => {
+      localStorage.removeItem("userId");
+      window.location.href = "/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
+    })
+    .catch((error) => {
+      console.error("Logout Error:", error);
+    });
+  };
 
   useEffect(() => {
-    const posturl = `http://localhost:8080/api/careerdoctor/posts/${userId}`;
+    const specurl = `${Config.baseURL}/api/careerdoctor/${userId}/view-spec`;
+    const opinionurl = `${Config.baseURL}/api/careerdoctor/reports/${userId}`;
+    const posturl = `${Config.baseURL}/api/careerdoctor/posts/${userId}`;
 
     axios
       .get(posturl, {
@@ -197,64 +248,96 @@ const MyPage = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log("Post Data:", response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Post Error:", error);
       });
-    
+
+    axios
+      .get(opinionurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("Opinion Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Opinion Error:", error);
+      });
+
+    axios
+      .get(specurl, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("Spec Data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Spec Error:", error);
+      });
   }, [userId]);
 
   return (
     <>
-    <Header/>
-    <PageContainer>
-      <ProfileSection>
-        <ProfileImage></ProfileImage>
-        <ProfileDetails>
-          <InfoBox>
-            <UserNameMetaBox>
-              <UserName>{userId}</UserName>
-              <Meta>👍 스펙 양호</Meta>
-            </UserNameMetaBox>
-            <ButtonGroup>
-              <Button2>내 스펙 수정</Button2>
-              <Button2>로그아웃</Button2>
-            </ButtonGroup>
-          </InfoBox>
-          <SpecBox>
-            <Box>
-              <Button>스펙 공개</Button>
-              <Button>스펙 비공개</Button>
-            </Box>
-          </SpecBox>
-        </ProfileDetails>
-      </ProfileSection>
-      <SelectionBarContainer>
-        <SelectionButton onClick={handleSelectionButtonClick}>
-          스펙 진단받기
-        </SelectionButton>
-        <SelectionButton onClick={handleOpinionButtonClick}>
-          스펙 소견서
-        </SelectionButton>
-        <SelectionButton onClick={handleBalanceButtonClick}>
-          취준밸런스
-        </SelectionButton>
-      </SelectionBarContainer>
-      {/* 스펙진단받기클릭 */}
-      {showDiagnosis && (
-        <SelectionCategory
-          handlePrescriptionButtonClick={handlePrescriptionButtonClick}
-        />
-      )}
-      {/* 스펙진단서 스펙처방전 클릭*/}
-      {showPrescription && <Prescription />}
-      {showOpinion && <Opinion />}
-      {showBalance && <Balance />}
-    </PageContainer>
+      <Header />
+      <PageContainer>
+        <ProfileSection>
+          <ProfileImage></ProfileImage>
+          <ProfileDetails>
+            <InfoBox>
+              <UserNameMetaBox>
+                <UserName>{userId}</UserName>
+                <Meta>👍 스펙 양호</Meta>
+              </UserNameMetaBox>
+              <ButtonGroup>
+                <Button2>내 스펙 수정</Button2>
+                <Button2 onClick={handleLogout}>로그아웃</Button2>
+              </ButtonGroup>
+            </InfoBox>
+            <SpecBox>
+              <Box>
+                <Button
+                  selected={isSpecPublic}
+                  onClick={() => toggleSpecVisibility(true)}
+                >
+                  스펙 공개
+                </Button>
+                <Button
+                  selected={!isSpecPublic}
+                  onClick={() => toggleSpecVisibility(false)}
+                >
+                  스펙 비공개
+                </Button>
+              </Box>
+            </SpecBox>
+          </ProfileDetails>
+        </ProfileSection>
+        <SelectionBarContainer>
+          <SelectionButton onClick={handleSelectionButtonClick}>
+            스펙 진단받기
+          </SelectionButton>
+          <SelectionButton onClick={handleOpinionButtonClick}>
+            스펙 소견서
+          </SelectionButton>
+          <SelectionButton onClick={handleBalanceButtonClick}>
+            취준밸런스
+          </SelectionButton>
+        </SelectionBarContainer>
+        {showDiagnosis && (
+          <SelectionCategory
+            handlePrescriptionButtonClick={handlePrescriptionButtonClick}
+          />
+        )}
+        {showPrescription && <Prescription />}
+        {showOpinion && <Opinion />}
+        {showBalance && <Balance />}
+      </PageContainer>
     </>
   );
 };
 
 export default MyPage;
-

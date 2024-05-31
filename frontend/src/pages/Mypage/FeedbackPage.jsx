@@ -1,22 +1,23 @@
 //#마이페이지_스펙소견서_피드백 후기 작성하기
 import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 90%;
+  width: 60%;
   max-width: 800px;
   margin: 0 auto;
   padding: 2vw;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const Header = styled.div`
+const Titel = styled.div`
   font-family: "PretendardVariable";
   font-size: 1.5vw;
   font-weight: 700;
@@ -215,9 +216,10 @@ const FeedbackPage = () => {
     }
   };
 
-  return (
+  return (<>
+    <Header/>
     <PageContainer>
-      <Header>000님에게 0000년 00월 00일 받은 소견서</Header>
+      <Titel>000님에게 0000년 00월 00일 받은 소견서</Titel>
       <SubHeader>소견서</SubHeader>
       <TextBlock>
         소견서 내용 작성된 소견서 내용 작성된 소견서 내용 작성된 소견서 내용
@@ -325,7 +327,7 @@ const FeedbackPage = () => {
       <SubmitButtonContainer>
         <SubmitButton>작성완료</SubmitButton>
       </SubmitButtonContainer>
-    </PageContainer>
+    </PageContainer><Footer/></>
   );
 };
 
