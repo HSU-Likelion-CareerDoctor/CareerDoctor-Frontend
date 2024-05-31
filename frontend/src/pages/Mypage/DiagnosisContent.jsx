@@ -92,14 +92,45 @@ const DiagnosisContent = () => {
 
   const careerData = [
     { label: '1위', value: 10 },
-    { label: '1위', value: 10 },
-    { label: '1위', value: 10 },
-    { label: '1위', value: 10 },
-    { label: '1위', value: 10 } 
+    { label: '2위', value: 20 },
+    { label: '3위', value: 30 },
+    { label: '4위', value: 40 },
+    { label: '5위', value: 50 } 
+  ];
+
+  const certificateData = [
+    { label: '국가공인자격증', value: 40 },
+    { label: '민간자격증', value: 30 },
+    { label: 'IT자격증', value: 20 },
+    { label: '어학자격증', value: 10 }
+  ];
+
+  const activityData = [
+    { label: '봉사활동', value: 20 },
+    { label: '인턴십', value: 50 },
+    { label: '동아리', value: 15 },
+    { label: '해외경험', value: 15 }
+  ];
+
+  const languageData = [
+    { label: '영어', value: 50 },
+    { label: '중국어', value: 20 },
+    { label: '일본어', value: 15 },
+    { label: '기타', value: 15 }
+  ];
+
+  const otherData = [
+    { label: '기타 활동 1', value: 25 },
+    { label: '기타 활동 2', value: 35 },
+    { label: '기타 활동 3', value: 40 }
   ];
 
   const educationMaxValue = Math.max(...educationData.map(d => d.value));
   const careerMaxValue = Math.max(...careerData.map(d => d.value));
+  const certificateMaxValue = Math.max(...certificateData.map(d => d.value));
+  const activityMaxValue = Math.max(...activityData.map(d => d.value));
+  const languageMaxValue = Math.max(...languageData.map(d => d.value));
+  const otherMaxValue = Math.max(...otherData.map(d => d.value));
 
   return (
     <DiagnosisWrapper>
@@ -127,6 +158,58 @@ const DiagnosisContent = () => {
             <BarContainer key={index}>
               <Label>{item.label}</Label>
               <Bar width={(item.value / careerMaxValue) * 100} isMax={item.value === careerMaxValue}>
+                <Value>{item.value}%</Value>
+              </Bar>
+            </BarContainer>
+          ))}
+        </ChartContainer>
+      </DiagnosisContainer>
+      <DiagnosisContainer>
+        <Text>자격증 진단 결과</Text>
+        <ChartContainer>
+          {certificateData.map((item, index) => (
+            <BarContainer key={index}>
+              <Label>{item.label}</Label>
+              <Bar width={(item.value / certificateMaxValue) * 100} isMax={item.value === certificateMaxValue}>
+                <Value>{item.value}%</Value>
+              </Bar>
+            </BarContainer>
+          ))}
+        </ChartContainer>
+      </DiagnosisContainer>
+      <DiagnosisContainer>
+        <Text>대외활동 진단 결과</Text>
+        <ChartContainer>
+          {activityData.map((item, index) => (
+            <BarContainer key={index}>
+              <Label>{item.label}</Label>
+              <Bar width={(item.value / activityMaxValue) * 100} isMax={item.value === activityMaxValue}>
+                <Value>{item.value}%</Value>
+              </Bar>
+            </BarContainer>
+          ))}
+        </ChartContainer>
+      </DiagnosisContainer>
+      <DiagnosisContainer>
+        <Text>언어능력 진단 결과</Text>
+        <ChartContainer>
+          {languageData.map((item, index) => (
+            <BarContainer key={index}>
+              <Label>{item.label}</Label>
+              <Bar width={(item.value / languageMaxValue) * 100} isMax={item.value === languageMaxValue}>
+                <Value>{item.value}%</Value>
+              </Bar>
+            </BarContainer>
+          ))}
+        </ChartContainer>
+      </DiagnosisContainer>
+      <DiagnosisContainer>
+        <Text>기타 진단 결과</Text>
+        <ChartContainer>
+          {otherData.map((item, index) => (
+            <BarContainer key={index}>
+              <Label>{item.label}</Label>
+              <Bar width={(item.value / otherMaxValue) * 100} isMax={item.value === otherMaxValue}>
                 <Value>{item.value}%</Value>
               </Bar>
             </BarContainer>

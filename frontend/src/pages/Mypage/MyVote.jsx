@@ -131,7 +131,6 @@ const VoteOption = styled.div`
   }
 `;
 
-
 const VotePercentage = styled.div`
   font-size: 1.2vw;
   font-weight: bold;
@@ -141,7 +140,6 @@ const VotePercentage = styled.div`
 const VoteLabel = styled.div`
   font-size: 1vw;
 `;
-
 
 const AddBox = styled.button`
   display: flex;
@@ -163,21 +161,26 @@ const AddBox = styled.button`
 `;
 
 const MyVote = ({ likeCount, handleLikeClick, saveCount, handleSaveClick }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const initialSelectedOptions = Array(6).fill('A'); // 초기 선택 상태를 'A'로 설정
+  const [selectedOptions, setSelectedOptions] = useState(initialSelectedOptions);
   const [displayedVotes, setDisplayedVotes] = useState(6);
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const handleOptionClick = (index, option) => {
+    const newSelectedOptions = [...selectedOptions];
+    newSelectedOptions[index] = option;
+    setSelectedOptions(newSelectedOptions);
   };
 
   const handleAddMoreClick = () => {
-    setDisplayedVotes(displayedVotes + 4); 
+    const newDisplayedVotes = displayedVotes + 4;
+    setDisplayedVotes(newDisplayedVotes);
+    const newSelectedOptions = [...selectedOptions, ...Array(4).fill('A')]; // 새로운 항목 추가 시 초기 선택 상태를 'A'로 설정
+    setSelectedOptions(newSelectedOptions);
   };
-
 
   return (
     <MyVoteContainer>
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: displayedVotes }).map((_, index) => (
         <VoteBox key={index}>
           <InfoBox>
             <UserNameMetaBox>
@@ -201,18 +204,18 @@ const MyVote = ({ likeCount, handleLikeClick, saveCount, handleSaveClick }) => {
           </TitleContainer>
           <Content>내용입니다.</Content>
           <Vote>
-            <VoteOption isSelected={selectedOption === 'A'} onClick={() => handleOptionClick('A')}>
+            <VoteOption isSelected={selectedOptions[index] === 'A'} onClick={() => handleOptionClick(index, 'A')}>
               <VotePercentage>60%</VotePercentage>
               <VoteLabel>A</VoteLabel>
             </VoteOption>
-            <VoteOption isSelected={selectedOption === 'B'} onClick={() => handleOptionClick('B')}>
+            <VoteOption isSelected={selectedOptions[index] === 'B'} onClick={() => handleOptionClick(index, 'B')}>
               <VotePercentage>40%</VotePercentage>
               <VoteLabel>B</VoteLabel>
             </VoteOption>
           </Vote>
         </VoteBox>
       ))}
-         <AddBox onClick={handleAddMoreClick}>더보기</AddBox>
+      {/* <AddBox onClick={handleAddMoreClick}>더보기</AddBox> */}
     </MyVoteContainer>
   );
 };
